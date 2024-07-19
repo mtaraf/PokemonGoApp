@@ -1,0 +1,27 @@
+/* Container */
+.container {
+  width: 15%;
+  height: auto;
+  margin: 20px 2.5%;
+  background-color: #0f224a;
+  color: white;
+}
+
+.imageContainer {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+}
+
+/* Image */
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+/* Title */
+.title {
+  font-size: 1.3em;
+  font-weight: 300;
+}

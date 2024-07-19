@@ -1,0 +1,42 @@
+/* Container */
+.container {
+  background-color: #0c1c3e;
+  height: 50px;
+}
+
+/* Button */
+.signInButton {
+  background-color: #ffa800;
+  height: 50px;
+  color: black;
+  font-weight: 600;
+  border: none;
+  border-radius: 0;
+}
+
+.signInButton:hover {
+  background-color: #fdb524;
+  color: black;
+}
+
+/* Title */
+.title {
+  color: #ffa800;
+  margin-right: 10%;
+}
+
+/* Nav */
+.nav {
+  color: #ffa800;
+  margin: 0px 5%;
+}
+
+.nav:hover {
+  color: #ffa800;
+  border-bottom: 1px solid #ffa800;
+}
+
+.nav:focus {
+  color: #ffa800;
+  border-bottom: 1px solid #ffa800;
+}

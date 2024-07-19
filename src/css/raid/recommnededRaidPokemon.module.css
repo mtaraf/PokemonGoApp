@@ -1,0 +1,17 @@
+/* Container */
+.container {
+  width: 55%;
+  margin: 20px 0;
+  background-color: #0c1c3e;
+  border: 1px solid white;
+}
+
+/* Title */
+.title {
+  color: #ffa800;
+  font-size: 2em;
+  font-weight: 350;
+  text-align: center;
+  border-bottom: 1px solid #ffa800;
+  margin-bottom: 10px;
+}

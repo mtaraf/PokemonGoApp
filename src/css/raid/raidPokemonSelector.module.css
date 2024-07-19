@@ -1,0 +1,23 @@
+/* Container */
+.container {
+  width: 30%;
+  margin: 20px 5%;
+  background-color: #0c1c3e;
+  border: 1px solid white;
+}
+
+/* Button */
+.button {
+  margin: auto;
+  background-color: #0f224a;
+  border: 2px dashed #ffa800;
+  color: #ffa800;
+  height: 200px;
+  width: 200px;
+}
+
+.button:hover {
+  background-color: #16326e;
+  border: 5px dotted #ffa800;
+  color: #ffa800;
+}

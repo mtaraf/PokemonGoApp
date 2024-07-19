@@ -1,0 +1,6 @@
+/* Container */
+.container {
+  background-color: #0c1c3e;
+  margin-top: 50px;
+  display: flex;
+}

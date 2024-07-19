@@ -1,0 +1,15 @@
+/* Container */
+.container {
+  margin-top: 50px;
+  background-color: #0c1c3e;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  color: #ffa800;
+  font-size: 2em;
+  border-bottom: 1px solid #ffa800;
+  width: 80%;
+  margin-left: 10%;
+}
