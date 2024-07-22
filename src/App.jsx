@@ -5,16 +5,27 @@ import { Container, Row, Col } from "react-bootstrap";
 import Header from "./components/header/Header";
 import RaidCalculator from "./components/raid/RaidCalculator";
 import CurrentRaids from "./components/raid/CurrentRaids";
+import MyPokemon from "./components/myPokemon/MyPokemon";
 
 function App() {
+  const [page, setPage] = useState(0);
+
   return (
     <>
-      <Header />
+      <Header setPage={setPage} />
       <Container fluid>
         <Row className={styles.background}>
           <Col xs={{ span: 10, offset: 1 }}>
-            <RaidCalculator />
-            <CurrentRaids />
+            {page === 0 ? (
+              <>
+                <RaidCalculator />
+                <CurrentRaids />
+              </>
+            ) : page === 1 ? (
+              <MyPokemon />
+            ) : (
+              <div>explore</div>
+            )}
           </Col>
         </Row>
       </Container>

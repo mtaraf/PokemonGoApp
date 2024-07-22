@@ -1,6 +1,6 @@
 /* Container */
 .container {
-  margin-top: 50px;
+  margin: 50px 0px;
   background-color: #0c1c3e;
 }
 
@@ -12,4 +12,13 @@
   border-bottom: 1px solid #ffa800;
   width: 80%;
   margin-left: 10%;
+  margin-bottom: 20px;
+}
+
+.subTitle {
+  color: #ffa800;
+  font-size: 1.7em;
+  margin-left: 2%;
+  background-color: #0f224a;
+  width: 96%;
 }

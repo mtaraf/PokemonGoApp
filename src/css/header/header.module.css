@@ -5,7 +5,7 @@
 }
 
 /* Button */
-.signInButton {
+.button {
   background-color: #ffa800;
   height: 50px;
   color: black;
@@ -14,7 +14,28 @@
   border-radius: 0;
 }
 
-.signInButton:hover {
+.button:hover {
+  background-color: #fdb524;
+  color: black;
+}
+
+.modalButton {
+  width: 100%;
+  margin: 10px auto;
+  background-color: #ffa800;
+  border: none;
+  color: black;
+}
+
+.modalButton:disabled {
+  width: 100%;
+  margin: 10px auto;
+  background-color: #ffa800;
+  border: none;
+  color: black;
+}
+
+.modalButton:hover {
   background-color: #fdb524;
   color: black;
 }
@@ -39,4 +60,9 @@
 .nav:focus {
   color: #ffa800;
   border-bottom: 1px solid #ffa800;
+}
+
+/* Form */
+.bottomFormControl {
+  margin: 10px 0;
 }
