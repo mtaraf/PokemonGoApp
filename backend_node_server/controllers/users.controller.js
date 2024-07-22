@@ -2,8 +2,23 @@ const Users = require("../models/users.model.js");
 
 const getUser = async (req, res) => {
   try {
+    const { username, password } = req.params;
+    const user = await Users.findOne({
+      username: username,
+      password: password,
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const checkUsers = async (req, res) => {
+  try {
     const { username } = req.params;
-    const user = await Users.findOne({ username: username });
+    const user = await Users.findOne({
+      username: username,
+    });
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -50,4 +65,5 @@ module.exports = {
   getUsers,
   postUser,
   updateUser,
+  checkUsers,
 };

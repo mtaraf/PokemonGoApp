@@ -8,11 +8,15 @@ import CurrentRaids from "./components/raid/CurrentRaids";
 import MyPokemon from "./components/myPokemon/MyPokemon";
 
 function App() {
+  const [user, setUser] = useState({
+    username: "",
+    signedIn: false,
+  });
   const [page, setPage] = useState(0);
 
   return (
     <>
-      <Header setPage={setPage} />
+      <Header setPage={setPage} setUser={setUser} user={user} />
       <Container fluid>
         <Row className={styles.background}>
           <Col xs={{ span: 10, offset: 1 }}>

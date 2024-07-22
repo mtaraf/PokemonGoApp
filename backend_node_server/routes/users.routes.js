@@ -3,7 +3,8 @@ const router = express.Router();
 const usersController = require("../controllers/users.controller.js");
 
 // Get Requests
-router.get("/:username", usersController.getUser);
+router.get("/:username&:password", usersController.getUser);
+router.get("/:username", usersController.checkUsers);
 router.get("/", usersController.getUsers);
 
 // Post Requests
