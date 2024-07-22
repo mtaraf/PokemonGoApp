@@ -1,0 +1,68 @@
+/* Container */
+.container {
+  width: 20%;
+  height: fit-content;
+  margin: 10px 20px;
+  border: none;
+  background-color: #1c4d79;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #1f5585;
+  color: #ffa800;
+  border-bottom: 1px solid #ffa800;
+  font-weight: 500;
+}
+
+/* Buttons */
+.filterButton {
+  width: 100%;
+  display: flex;
+  border: none;
+  border-radius: 0;
+  background-color: #1c4d79;
+}
+
+.filterButton:hover {
+  background-color: #1f5585;
+}
+
+.filterButton:focus {
+  color: #ffa800;
+}
+
+.filterItem {
+  display: flex;
+  background-color: #1c4d79;
+  color: white;
+  padding-left: 10px;
+}
+
+.filterItem:hover {
+  background-color: #1f5585;
+}
+
+.filterItem:focus {
+  color: #ffa800;
+}
+
+/* Images */
+.filterItemImageContainter {
+  width: 10%;
+  height: auto;
+  margin: 0 5px;
+}
+
+.filterImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+/* Form */
+.form {
+  margin-top: 10px;
+}

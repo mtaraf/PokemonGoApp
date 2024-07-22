@@ -1,0 +1,45 @@
+/* Card */
+.card {
+  width: 20%;
+  margin: 10px 2.5%;
+  background-color: #19466d;
+  border-color: #cee2f3;
+  color: #cee2f3;
+}
+
+.focusedCard {
+  width: 20%;
+  margin: 10px 2.5%;
+  background-color: #19466d;
+  border-color: #ffa800;
+  color: #ffa800;
+}
+
+.card:hover {
+  color: #ffa800;
+  border-color: #ffa800;
+  cursor: pointer;
+}
+
+.cardText {
+  text-align: center;
+  margin: 2px 0px;
+}
+
+.cardImageContainer {
+  width: 90%;
+  height: auto;
+  margin: auto;
+}
+
+.cardImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+/* Misc */
+.bold {
+  font-weight: 600;
+}

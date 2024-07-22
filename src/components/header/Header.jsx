@@ -27,12 +27,14 @@ export default function Header({ setPage, setUser, user }) {
       setDisabled(false);
     }
 
+    // Error checking for pasword length
     if (password.length > 7) {
       setPasswordLengthError(false);
     } else {
       setPasswordLengthError(true);
     }
 
+    // Error checking for number in password
     if (/\d/.test(password)) {
       setPasswordNumberError(false);
     } else {

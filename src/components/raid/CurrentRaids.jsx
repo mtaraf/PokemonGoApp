@@ -41,6 +41,7 @@ export default function CurrentRaids() {
             image={raid.assets.image}
             cp={raid.cpRange}
             types={raid.types}
+            key={raid.assets.image}
           />
         ))}
       </Row>
@@ -52,6 +53,7 @@ export default function CurrentRaids() {
             image={raid.assets.image}
             cp={raid.cpRange}
             types={raid.types}
+            key={raid.assets.image}
           />
         ))}
       </Row>
@@ -62,6 +64,7 @@ export default function CurrentRaids() {
           image={raid.assets.image}
           cp={raid.cpRange}
           types={raid.types}
+          key={raid.assets.image}
         />
       ))}
       <Row>
@@ -72,6 +75,7 @@ export default function CurrentRaids() {
             image={raid.assets.image}
             cp={raid.cpRange}
             types={raid.types}
+            key={raid.assets.image}
           />
         ))}
       </Row>

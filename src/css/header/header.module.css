@@ -50,6 +50,10 @@
   margin-right: 10%;
 }
 
+.title:hover {
+  color: #ffa800;
+}
+
 /* Nav */
 .nav {
   color: #ffa800;
