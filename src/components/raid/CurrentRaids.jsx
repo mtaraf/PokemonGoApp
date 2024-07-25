@@ -1,4 +1,4 @@
-import { Card, Row } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 import styles from "../../css/raid/currentRaids.module.css";
 import RaidDisplay from "./RaidDisplay";
 import articuno from "../../assets/articuno.jpg";
@@ -36,40 +36,34 @@ export default function CurrentRaids() {
       <Row>
         <div className={styles.subTitle}>Tier 1</div>
         {raidList?.lvl1.map((raid) => (
-          <RaidDisplay
-            name={raid.names.English}
-            image={raid.assets.image}
-            cp={raid.cpRange}
-            types={raid.types}
-            key={raid.assets.image}
-          />
+          <Col md={3}>
+            <RaidDisplay
+              name={raid.names.English}
+              image={raid.assets.image}
+              cp={raid.cpRange}
+              types={raid.types}
+              key={raid.assets.image}
+            />
+          </Col>
         ))}
       </Row>
       <Row>
         <div className={styles.subTitle}>Tier 3</div>
         {raidList?.lvl3.map((raid) => (
-          <RaidDisplay
-            name={raid.names.English}
-            image={raid.assets.image}
-            cp={raid.cpRange}
-            types={raid.types}
-            key={raid.assets.image}
-          />
+          <Col md={3}>
+            <RaidDisplay
+              name={raid.names.English}
+              image={raid.assets.image}
+              cp={raid.cpRange}
+              types={raid.types}
+              key={raid.assets.image}
+            />
+          </Col>
         ))}
       </Row>
       <div className={styles.subTitle}>Tier 5</div>
       {raidList?.lvl5.map((raid) => (
-        <RaidDisplay
-          name={raid.names.English}
-          image={raid.assets.image}
-          cp={raid.cpRange}
-          types={raid.types}
-          key={raid.assets.image}
-        />
-      ))}
-      <Row>
-        <div className={styles.subTitle}>Mega</div>
-        {raidList?.mega.map((raid) => (
+        <Col md={3}>
           <RaidDisplay
             name={raid.names.English}
             image={raid.assets.image}
@@ -77,6 +71,20 @@ export default function CurrentRaids() {
             types={raid.types}
             key={raid.assets.image}
           />
+        </Col>
+      ))}
+      <Row>
+        <div className={styles.subTitle}>Mega</div>
+        {raidList?.mega.map((raid) => (
+          <Col md={3}>
+            <RaidDisplay
+              name={raid.names.English}
+              image={raid.assets.image}
+              cp={raid.cpRange}
+              types={raid.types}
+              key={raid.assets.image}
+            />
+          </Col>
         ))}
       </Row>
     </Card>

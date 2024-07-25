@@ -8,12 +8,12 @@ export default function RecommendedRaidPokemon() {
     <Card className={styles.container}>
       <div className={styles.title}>Best Pokemon</div>
       <Row>
-        <Col>
+        <Col xl={6} lg={12} md={12} sm={12}>
           <PokemonDisplay image={articuno} name="articuno" cp="1000" />
           <PokemonDisplay image={articuno} name="" cp="1000" />
           <PokemonDisplay image={articuno} name="" cp="1000" />
         </Col>
-        <Col>
+        <Col xl={6} lg={12} md={12} sm={12}>
           <PokemonDisplay image={articuno} name="" cp="1000" />
           <PokemonDisplay image={articuno} name="" cp="1000" />
           <PokemonDisplay image={articuno} name="" cp="1000" />

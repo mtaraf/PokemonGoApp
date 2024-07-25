@@ -1,0 +1,96 @@
+/* Card */
+.card {
+  display: block;
+  background-color: #1c4d79;
+  margin: 10px 20px;
+  color: #cee2f3;
+}
+
+/* Images */
+.mainImageContainer {
+  width: 40%;
+  height: auto;
+  margin: 0 auto 10px auto;
+}
+
+.mainImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid #cee2f3;
+}
+
+.smallImageContainer {
+  width: 40%;
+  height: auto;
+  display: flex;
+  margin: 10px auto;
+}
+
+.smallImage {
+  object-fit: contain;
+  width: 10%;
+  height: auto;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
+/* Titles */
+.name {
+  text-align: center;
+  font-size: 2em;
+  border-bottom: 1px solid #cee2f3;
+  margin: 10px auto;
+  width: 90%;
+  font-weight: 400;
+}
+
+.subTitle {
+  font-size: 1.3em;
+  border-bottom: 1px solid #cee2f3;
+  margin: 0 auto 10px auto;
+  width: 90%;
+  font-weight: 400;
+}
+
+/* IV Section */
+
+.ivs {
+  width: 90%;
+  margin: 10px auto;
+}
+
+.ivTitle {
+  font-size: 1.3em;
+  border-bottom: 1px solid #cee2f3;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.ivItem {
+  background-color: #1c4d79;
+  border: none;
+  color: #cee2f3;
+}
+
+.ivBar {
+  background-color: #cee2f3;
+}
+
+/* Misc */
+.cp {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.candy {
+  margin: auto;
+  text-align: center;
+}
+
+.moves {
+  width: 90%;
+  margin: 10px 5%;
+  font-size: 1.1em;
+}

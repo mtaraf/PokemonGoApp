@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const usersRouter = require("./routes/users.routes.js");
+const pokemonRouter = require("./routes/pokemon.routes.js");
 
 // middle-ware
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(function (req, res, next) {
 });
 
 app.use("/api/users", usersRouter);
+app.use("/api/pokemon", pokemonRouter);
 
 mongoose
   .connect(

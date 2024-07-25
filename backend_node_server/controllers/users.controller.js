@@ -13,18 +13,6 @@ const getUser = async (req, res) => {
   }
 };
 
-const checkUsers = async (req, res) => {
-  try {
-    const { username } = req.params;
-    const user = await Users.findOne({
-      username: username,
-    });
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 const getUsers = async (req, res) => {
   try {
     const users = await Users.find({});
@@ -65,5 +53,4 @@ module.exports = {
   getUsers,
   postUser,
   updateUser,
-  checkUsers,
 };

@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import styles from "../../css/header/header.module.css";
 import { Button, Navbar, Nav, Container, Modal, Form } from "react-bootstrap";
 import userImage from "../../assets/user.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ setPage, setUser, user }) {
+  const navigate = useNavigate();
+  const changePage = (page) => navigate(page);
+
   const [show, setShow] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [username, setUsername] = useState("");
@@ -43,9 +47,9 @@ export default function Header({ setPage, setUser, user }) {
   }, [username, password]);
 
   // Changes current page displayed
-  const changePage = (page) => {
-    setPage(page);
-  };
+  // const changePage = (page) => {
+  //   setPage(page);
+  // };
 
   // closes modal
   const handleClose = () => {
@@ -159,17 +163,26 @@ export default function Header({ setPage, setUser, user }) {
         <Container>
           <Navbar.Brand className={styles.title}>PokeGo</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link className={styles.nav} onClick={() => changePage(0)}>
+            <Nav.Link
+              className={styles.nav}
+              onClick={() => changePage("/home")}
+            >
               Raids
             </Nav.Link>
-            <Nav.Link className={styles.nav} onClick={() => changePage(1)}>
+            <Nav.Link
+              className={styles.nav}
+              onClick={() => changePage("/myPokemon")}
+            >
               MyPokemon
             </Nav.Link>
-            <Nav.Link className={styles.nav} onClick={() => changePage(2)}>
+            <Nav.Link
+              className={styles.nav}
+              onClick={() => changePage("/explore")}
+            >
               Explore
             </Nav.Link>
           </Nav>
-          {user.signedIn ? (
+          {user?.signedIn ? (
             <Button className={styles.button}>
               <div className={styles.userImageContainer}>
                 <img src={userImage} className={styles.userImage} />

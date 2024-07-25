@@ -1,7 +1,12 @@
 /* Container */
 .container {
+  background-color: #0f224a;
+  padding: 0;
+}
+
+.card {
   background-color: #19466d;
-  margin: 10px 10px;
+  margin: 20px 0;
 }
 
 .flex {
@@ -20,7 +25,6 @@
 
 /* Cards */
 .cards {
-  width: 50%;
   background-color: #19466d;
   height: 100%;
   border: none;
@@ -28,4 +32,53 @@
 
 .cardDisplay {
   display: inline-block;
+}
+
+/* Button */
+.button {
+  width: 20%;
+  margin: 10px 2.5%;
+  border: 1px dashed #cee2f3;
+  color: #cee2f3;
+  font-size: 4em;
+  text-align: center;
+  background-color: #19466d;
+}
+
+.button:hover {
+  background-color: #1f5585;
+  border: 1px dashed #cee2f3;
+}
+
+/* Form */
+.formControl {
+  margin: 10px 0;
+}
+
+.searchFormControl {
+  width: 50%;
+  margin: 10px 0;
+}
+
+.formSelect {
+  margin-bottom: 10px;
+}
+
+.ivFormControl {
+  width: 30%;
+  margin: 0 3%;
+}
+
+.formButton {
+  background-color: #19466d;
+  border: none;
+  margin-top: 10px;
+}
+
+.formButton:hover {
+  background-color: #1f5585;
+}
+
+.formCheckbox {
+  margin: 5px 0px;
 }
