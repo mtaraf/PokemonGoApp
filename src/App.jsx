@@ -12,6 +12,7 @@ function App() {
   const [user, setUser] = useState({
     username: "",
     signedIn: false,
+    list: [],
   });
 
   return (

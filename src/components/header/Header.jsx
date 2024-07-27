@@ -22,6 +22,7 @@ export default function Header({ setPage, setUser, user }) {
 
   // TO-DO: Put this in ENV file
   const USERS_API_URL = "http://localhost:5000/api/users";
+  const USER_POKEMON_LIST_API_URL = "http://localhost:5000/api/userPokemonList";
 
   // Make sure there is atleast one character for username and password to enable submit button
   useEffect(() => {
@@ -67,11 +68,24 @@ export default function Header({ setPage, setUser, user }) {
     const username = e.target.form[0].value;
     const password = e.target.form[1].value;
 
-    const data = await getUser(username, password);
+    const success = await getUser(username, password);
 
-    if (data !== null) {
+    let data = null;
+
+    if (success) {
+      data = await getUserList(username);
+    }
+
+    if (data !== null && data.length !== 0) {
       setUser({
-        username: data.username,
+        username: e.target.form[0].value,
+        list: data[0].list,
+        signedIn: true,
+      });
+    } else {
+      setUser({
+        username: e.target.form[0].value,
+        list: [],
         signedIn: true,
       });
     }
@@ -82,7 +96,6 @@ export default function Header({ setPage, setUser, user }) {
     try {
       const response = await fetch(`${USERS_API_URL}/${username}&${password}`);
       const data = await response.json();
-      console.log(data);
 
       // If user exists, login user
       if (data !== null && response.status === 200) {
@@ -97,6 +110,17 @@ export default function Header({ setPage, setUser, user }) {
     } catch (e) {
       console.log(e);
       return null;
+    }
+  };
+
+  // API to get user list by username, returns null if user list does not exist
+  const getUserList = async (username) => {
+    try {
+      const response = await fetch(`${USER_POKEMON_LIST_API_URL}/${username}`);
+      const data = response.json();
+      return data;
+    } catch (error) {
+      console.log("Error obtaining user pokemon list: " + error);
     }
   };
 

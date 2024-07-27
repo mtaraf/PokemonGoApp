@@ -55,6 +55,11 @@
   margin: 10px 0;
 }
 
+.errorFormControl {
+  margin: 10px 0;
+  border: 1px solid red;
+}
+
 .searchFormControl {
   width: 50%;
   margin: 10px 0;
@@ -69,6 +74,12 @@
   margin: 0 3%;
 }
 
+.errorIvFormControl {
+  width: 30%;
+  margin: 0 3%;
+  border: 1px solid red;
+}
+
 .formButton {
   background-color: #19466d;
   border: none;
@@ -81,4 +92,16 @@
 
 .formCheckbox {
   margin: 5px 0px;
+}
+
+.formErrorMessage {
+  color: red;
+}
+
+/* Misc */
+.alert {
+  margin: 10px 0;
+  background-color: rgb(238, 126, 126);
+  border: black;
+  color: black;
 }

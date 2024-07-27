@@ -34,6 +34,18 @@ const getPokemon = async (req, res) => {
   }
 };
 
+const getSpecificPokemon = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const mons = await Pokemon.find({
+      pokemon_name: name,
+    });
+    res.status(200).json(mons);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const postPokemon = async (req, res) => {
   try {
     await Pokemon.syncIndexes();
@@ -46,5 +58,6 @@ const postPokemon = async (req, res) => {
 
 module.exports = {
   getPokemon,
+  getSpecificPokemon,
   postPokemon,
 };

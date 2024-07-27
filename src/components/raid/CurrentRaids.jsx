@@ -36,13 +36,12 @@ export default function CurrentRaids() {
       <Row>
         <div className={styles.subTitle}>Tier 1</div>
         {raidList?.lvl1.map((raid) => (
-          <Col md={3}>
+          <Col md={3} key={raid.assets.image}>
             <RaidDisplay
               name={raid.names.English}
               image={raid.assets.image}
               cp={raid.cpRange}
               types={raid.types}
-              key={raid.assets.image}
             />
           </Col>
         ))}
@@ -50,20 +49,19 @@ export default function CurrentRaids() {
       <Row>
         <div className={styles.subTitle}>Tier 3</div>
         {raidList?.lvl3.map((raid) => (
-          <Col md={3}>
+          <Col md={3} key={raid.assets.image}>
             <RaidDisplay
               name={raid.names.English}
               image={raid.assets.image}
               cp={raid.cpRange}
               types={raid.types}
-              key={raid.assets.image}
             />
           </Col>
         ))}
       </Row>
       <div className={styles.subTitle}>Tier 5</div>
       {raidList?.lvl5.map((raid) => (
-        <Col md={3}>
+        <Col md={3} key={raid.assets.image}>
           <RaidDisplay
             name={raid.names.English}
             image={raid.assets.image}
@@ -76,7 +74,7 @@ export default function CurrentRaids() {
       <Row>
         <div className={styles.subTitle}>Mega</div>
         {raidList?.mega.map((raid) => (
-          <Col md={3}>
+          <Col md={3} key={raid.assets.image}>
             <RaidDisplay
               name={raid.names.English}
               image={raid.assets.image}
