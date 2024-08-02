@@ -29,7 +29,17 @@
   background-color: #1f5585;
 }
 
-.filterButton:focus {
+.currentFilterButton {
+  width: 100%;
+  display: flex;
+  border: none;
+  border-radius: 0;
+  background-color: #1c4d79;
+  color: #ffa800;
+}
+
+.currentFilterButton:hover {
+  background-color: #1f5585;
   color: #ffa800;
 }
 

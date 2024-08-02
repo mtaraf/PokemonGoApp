@@ -6,14 +6,14 @@ export default function PokemonMiniCard({
   image,
   name,
   setCurrent,
-  index,
+  id,
   current,
 }) {
   return (
     <Card
-      className={index === current ? styles.focusedCard : styles.card}
+      className={id === current ? styles.focusedCard : styles.card}
       onClick={() => {
-        setCurrent(index);
+        setCurrent(id);
       }}
     >
       <div className={styles.cardText}>

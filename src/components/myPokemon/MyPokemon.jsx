@@ -15,6 +15,7 @@ import PokemonMiniCard from "./PokemonMiniCard";
 import { useEffect, useState } from "react";
 import Header from "../header/Header";
 import PokemonHighlight from "./PokemonHighlight";
+import EmptyPokemonHighlight from "./EmptyPokemonHighlight";
 
 export default function MyPokemon({ setPage, setUser, user }) {
   // Modal
@@ -35,8 +36,36 @@ export default function MyPokemon({ setPage, setUser, user }) {
   const [showAlert, setShowAlert] = useState(false);
 
   // Main
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState();
+  const [highlightPokemonIndex, setHighlightPokemonIndex] = useState();
   const [userPokemonList, setUserPokemonList] = useState([]);
+  const [displayPokemonList, setDisplayPokemonList] = useState([]);
+
+  //Use Effects
+  useEffect(() => {
+    getPokemonApiData();
+    if (user.signedIn) {
+      syncUserPokemonList();
+    }
+  }, [user]);
+
+  // Keeps selected pokemon in highlight even when order/filter chanhed
+  useEffect(() => {
+    const index = displayPokemonList.findIndex((item) => item._id === current);
+    setHighlightPokemonIndex(index);
+  }, [current, displayPokemonList]);
+
+  // filters list of pokemon on modal
+  useEffect(() => {
+    let tempList = modalList;
+    tempList = tempList.filter((item) => item.startsWith(modalSearch));
+    setDynamicModalList(tempList);
+  }, [modalSearch]);
+
+  // Whenever user list changes, update display list
+  useEffect(() => {
+    setDisplayPokemonList(userPokemonList);
+  }, [userPokemonList]);
 
   // TO-DO: Put this in ENV file
   const POKEMON_API_URL = "http://localhost:5000/api/pokemon";
@@ -233,20 +262,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
     setDynamicModalList(tempList);
   };
 
-  useEffect(() => {
-    getPokemonApiData();
-    if (user.signedIn) {
-      syncUserPokemonList();
-    }
-  }, [user]);
-
-  // filters list of pokemon on modal
-  useEffect(() => {
-    let tempList = modalList;
-    tempList = tempList.filter((item) => item.startsWith(modalSearch));
-    setDynamicModalList(tempList);
-  }, [modalSearch]);
-
   return (
     <Container fluid className={styles.container}>
       <Header setPage={setPage} setUser={setUser} user={user} />
@@ -256,7 +271,11 @@ export default function MyPokemon({ setPage, setUser, user }) {
           <Card className={styles.card}>
             <Row>
               <Col md={3} sm={12}>
-                <PokemonFilter />
+                <PokemonFilter
+                  setList={setDisplayPokemonList}
+                  userList={userPokemonList}
+                  displayList={displayPokemonList}
+                />
               </Col>
               <Col md={6} sm={12}>
                 <Card className={styles.cards}>
@@ -278,10 +297,10 @@ export default function MyPokemon({ setPage, setUser, user }) {
                     >
                       +
                     </Button>
-                    {userPokemonList.map((item, index) => (
+                    {displayPokemonList.map((item, index) => (
                       <PokemonMiniCard
-                        key={item.name + index.toString()}
-                        index={index}
+                        key={index}
+                        id={item._id}
                         name={item.name}
                         cp={item.cp}
                         image={item.image}
@@ -293,17 +312,26 @@ export default function MyPokemon({ setPage, setUser, user }) {
                 </Card>
               </Col>
               <Col md={3} sm={12}>
-                <PokemonHighlight
-                  name={userPokemonList[current]?.name}
-                  image={userPokemonList[current]?.image}
-                  candy={userPokemonList[current]?.candy}
-                  attack={userPokemonList[current]?.attack}
-                  defense={userPokemonList[current]?.defense}
-                  hp={userPokemonList[current]?.hp}
-                  cp={userPokemonList[current]?.cp}
-                  fastMove={userPokemonList[current]?.fastMove}
-                  chargedMove={userPokemonList[current]?.chargedMove}
-                />
+                {displayPokemonList[highlightPokemonIndex] ? (
+                  <PokemonHighlight
+                    name={displayPokemonList[highlightPokemonIndex]?.name}
+                    image={displayPokemonList[highlightPokemonIndex]?.image}
+                    candy={displayPokemonList[highlightPokemonIndex]?.candy}
+                    attack={displayPokemonList[highlightPokemonIndex]?.attack}
+                    defense={displayPokemonList[highlightPokemonIndex]?.defense}
+                    hp={displayPokemonList[highlightPokemonIndex]?.hp}
+                    cp={displayPokemonList[highlightPokemonIndex]?.cp}
+                    fastMove={
+                      displayPokemonList[highlightPokemonIndex]?.fastMove
+                    }
+                    chargedMove={
+                      displayPokemonList[highlightPokemonIndex]?.chargedMove
+                    }
+                    types={displayPokemonList[highlightPokemonIndex]?.types}
+                  />
+                ) : (
+                  <EmptyPokemonHighlight />
+                )}
               </Col>
             </Row>
           </Card>
@@ -329,7 +357,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
                 />
               </div>
               <Form.Select className={styles.formSelect}>
-                {/* TO-DO: create list for all pokemon to come up */}
                 {dynamicModalList.map((item, index) => (
                   <option value={item} key={index}>
                     {item}

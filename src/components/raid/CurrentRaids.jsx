@@ -4,30 +4,7 @@ import RaidDisplay from "./RaidDisplay";
 import articuno from "../../assets/articuno.jpg";
 import { useState, useEffect } from "react";
 
-export default function CurrentRaids() {
-  const [raidList, setRaidList] = useState();
-
-  // API for current raids
-  const raidApi =
-    "https://pokemon-go-api.github.io/pokemon-go-api/api/raidboss.json";
-
-  // Query API for current raids
-  const getCurrentRaids = async () => {
-    try {
-      const response = await fetch(raidApi);
-      const data = await response.json();
-      console.log(data);
-
-      setRaidList(data.currentList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getCurrentRaids();
-  }, []);
-
+export default function CurrentRaids({ raidList }) {
   return (
     <Card className={styles.container}>
       <div className={styles.title}>Current Raids</div>

@@ -1,0 +1,15 @@
+/* Card */
+.card {
+  display: block;
+  margin: 10px 20px;
+  color: #cee2f3;
+  background-color: #1c4d79;
+  height: 60%;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  font-size: 2em;
+  padding: 10px;
+}

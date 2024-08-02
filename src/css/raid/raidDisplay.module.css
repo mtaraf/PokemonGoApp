@@ -20,6 +20,16 @@
   height: 100%;
 }
 
+.typeImage {
+  margin: 0px 2px;
+  width: 40px;
+}
+
+.typeImageContainer {
+  margin: 5px auto;
+  display: flex;
+}
+
 /* Title */
 .title {
   font-size: 1.3em;

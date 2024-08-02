@@ -1,12 +1,11 @@
 /* Container */
 .container {
   width: 50%;
-  margin: 30px auto;
+  margin: 10% auto;
   background-color: #0c1c3e;
-  border: 1px solid white;
 }
 
-/* Button */
+/* Buttons */
 .button {
   margin: auto;
   background-color: #0f224a;
@@ -20,4 +19,27 @@
   background-color: #16326e;
   border: 5px dotted #ffa800;
   color: #ffa800;
+}
+
+.submitButton {
+  background-color: #0f224a;
+  margin: 10px 0;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: #16326e;
+}
+
+/* Modal */
+.modalTitle {
+  font-size: 1.5em;
+}
+
+.modalLabel {
+  font-size: 1.2em;
+}
+
+.modalSelect {
+  margin: 10px 0;
 }

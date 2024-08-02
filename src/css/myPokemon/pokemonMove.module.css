@@ -1,0 +1,24 @@
+/* Container */
+.container {
+  display: flex;
+  margin: 10px auto;
+}
+
+.container img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.left {
+  margin: auto 5% auto 10%;
+}
+
+.right {
+  margin: auto 0;
+}
+
+/* Progress Bar */
+.bar {
+  width: 40%;
+  margin: auto 2%;
+}
