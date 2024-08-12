@@ -118,8 +118,11 @@ export default function PokemonHighlight({
       <div className={styles.name}>
         {name}
         <div className={styles.typeImage}>
-          {types?.map((type) => (
-            <img src={pokemonTypes.find((item) => item.label === type).image} />
+          {types?.map((type, index) => (
+            <img
+              src={pokemonTypes.find((item) => item.label === type).image}
+              key={index}
+            />
           ))}
         </div>
       </div>

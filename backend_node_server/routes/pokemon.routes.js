@@ -9,4 +9,7 @@ router.get("/:name", pokemonController.getSpecificPokemon);
 // Post Requests
 router.post("/", pokemonController.postPokemon);
 
+// Update Requests
+router.put("/:name", pokemonController.updatePokemon);
+
 module.exports = router;

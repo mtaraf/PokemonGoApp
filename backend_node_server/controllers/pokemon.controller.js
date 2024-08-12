@@ -56,8 +56,28 @@ const postPokemon = async (req, res) => {
   }
 };
 
+const updatePokemon = async (req, res) => {
+  try {
+    await Pokemon.syncIndexes();
+    const { name } = req.params;
+    const mon = await Pokemon.findOneAndUpdate(
+      { pokemon_name: name },
+      req.body
+    );
+
+    if (!mon) {
+      return res.status(404).json({ message: "Pokemon Not Found" });
+    }
+
+    res.status(200).json(mon);
+  } catch (error) {
+    res.status(500).json({ message: error.message + req.body });
+  }
+};
+
 module.exports = {
   getPokemon,
   getSpecificPokemon,
   postPokemon,
+  updatePokemon,
 };

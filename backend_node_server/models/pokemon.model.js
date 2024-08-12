@@ -20,6 +20,10 @@ const PokemonSchema = mongoose.Schema(
     },
 
     type: [],
+
+    charged_moves: [],
+
+    fast_moves: [],
   },
   {
     timestamps: true, // CreatedAt and UpdatedAt

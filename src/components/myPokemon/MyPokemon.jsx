@@ -10,7 +10,6 @@ import {
   Alert,
 } from "react-bootstrap";
 import PokemonFilter from "./PokemonFilter";
-import tempImage from "../../assets/articuno.jpg";
 import PokemonMiniCard from "./PokemonMiniCard";
 import { useEffect, useState } from "react";
 import Header from "../header/Header";
@@ -21,7 +20,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
   // Modal
   const [show, setShow] = useState(false);
   const [modalList, setModalList] = useState([""]);
-  const [dynamicModalList, setDynamicModalList] = useState([""]);
+  const [dynamicModalList, setDynamicModalList] = useState([]);
   const [modalSearch, setModalSearch] = useState("");
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [errors, setErrors] = useState({
@@ -30,6 +29,12 @@ export default function MyPokemon({ setPage, setUser, user }) {
     attack: false,
     defense: false,
     hp: false,
+  });
+  const [pokemonMoveData, setPokemonMoveData] = useState([]);
+  const [currentPokemonMoves, setCurrentPokemonMoves] = useState({
+    id: "",
+    fastMoves: [],
+    chargedMoves: [],
   });
 
   //Alert
@@ -46,6 +51,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
     getPokemonApiData();
     if (user.signedIn) {
       syncUserPokemonList();
+      console.log(user.list);
     }
   }, [user]);
 
@@ -142,6 +148,13 @@ export default function MyPokemon({ setPage, setUser, user }) {
     setFormErrorMessage("");
     setErrors({});
     setModalSearch("");
+
+    // Reset Move Sets
+    setCurrentPokemonMoves({
+      id: "",
+      fastMoves: [],
+      chargedMoves: [],
+    });
 
     // TO-DO: Add pokemon to user list on database
     await updateList(tempList);
@@ -252,14 +265,31 @@ export default function MyPokemon({ setPage, setUser, user }) {
 
   const assignPokemonData = async (data) => {
     let tempList = [];
+    let moveList = [];
+
     const dataLength = data.length;
     for (let i = 0; i < dataLength; i++) {
       tempList.push(data[i].pokemon_name.toLowerCase());
+      moveList.push({
+        fastMoves: data[i].fast_moves,
+        chargedMoves: data[i].charged_moves,
+        id: data[i].pokemon_name.toLowerCase(),
+      });
     }
 
     tempList.sort();
+
     setModalList(tempList);
     setDynamicModalList(tempList);
+    setPokemonMoveData(moveList);
+  };
+
+  const modalDisplayPokemonMoves = (e) => {
+    console.log(e.target.value);
+    const name = e.target.value;
+    const data = pokemonMoveData.find((item) => item.id === name);
+    console.log(data);
+    setCurrentPokemonMoves(data);
   };
 
   return (
@@ -356,7 +386,10 @@ export default function MyPokemon({ setPage, setUser, user }) {
                   }}
                 />
               </div>
-              <Form.Select className={styles.formSelect}>
+              <Form.Select
+                className={styles.formSelect}
+                onChange={(e) => modalDisplayPokemonMoves(e)}
+              >
                 {dynamicModalList.map((item, index) => (
                   <option value={item} key={index}>
                     {item}
@@ -378,14 +411,20 @@ export default function MyPokemon({ setPage, setUser, user }) {
                   errors.candy ? styles.errorFormControl : styles.formControl
                 }
               />
-              <Form.Control
-                placeholder="Fast Move"
-                className={styles.formControl}
-              />
-              <Form.Control
-                placeholder="Charged Move"
-                className={styles.formControl}
-              />
+              <Form.Select className={styles.formSelect}>
+                {currentPokemonMoves?.fastMoves.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </Form.Select>
+              <Form.Select className={styles.formSelect} placeholder="Charged">
+                {currentPokemonMoves?.chargedMoves.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
+              </Form.Select>
               <div className={styles.flex}>
                 <Form.Control
                   placeholder="Attack IV"
