@@ -6,11 +6,65 @@
   color: #cee2f3;
 }
 
+/* Modal */
+.modalDisplay {
+  display: flex;
+}
+
+.modalButton {
+  background-color: #1c4d79;
+  border: none;
+  border-radius: 10px;
+  margin: 5px 5px;
+  width: 50%;
+}
+
+.modalButton:hover {
+  background-color: #1f5585;
+  border: none;
+}
+
+/* Dropdown */
+.dropdown {
+  margin: 10px 5% 0 25%;
+  background-color: #1c4d79;
+}
+
+.dropdownButton {
+  background-color: #1c4d79;
+  border: 1px solid #cee2f3;
+}
+
+.dropdownButton:hover {
+  background-color: #1f5585;
+  border: 1px solid #cee2f3;
+}
+
+.dropdownButton:focus {
+  background-color: #1f5585;
+  border: 1px solid #cee2f3;
+}
+
+.dropdownMenu {
+  background-color: #1c4d79;
+}
+
+.dropdownItem {
+  background-color: #1c4d79;
+  color: #cee2f3;
+}
+
+.dropdownItem:hover {
+  background-color: #1f5585;
+  color: #cee2f3;
+}
+
 /* Images */
 .mainImageContainer {
   width: 40%;
   height: auto;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 5px auto;
+  background-color: #1c4d79;
 }
 
 .mainImage {
@@ -46,6 +100,10 @@
   width: 35px;
   height: auto;
   margin: 0 5px 0 0;
+}
+
+.deleteImage {
+  width: 90%;
 }
 
 /* Titles */
@@ -93,7 +151,8 @@
 /* Misc */
 .cp {
   text-align: center;
-  margin: 10px 0 5px 0;
+  margin: 10px 0 10px 40%;
+  width: 20%;
 }
 
 .candy {
@@ -106,4 +165,8 @@
   width: 90%;
   margin: 10px 5%;
   font-size: 1.1em;
+}
+
+.flex {
+  display: flex;
 }

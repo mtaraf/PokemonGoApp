@@ -21,7 +21,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
   const [show, setShow] = useState(false);
   const [modalList, setModalList] = useState([""]);
   const [dynamicModalList, setDynamicModalList] = useState([]);
-  const [modalSearch, setModalSearch] = useState("");
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [errors, setErrors] = useState({
     cp: false,
@@ -30,6 +29,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
     defense: false,
     hp: false,
   });
+  // Displays pokemon moves in modal
   const [pokemonMoveData, setPokemonMoveData] = useState([]);
   const [currentPokemonMoves, setCurrentPokemonMoves] = useState({
     id: "",
@@ -60,13 +60,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
     const index = displayPokemonList.findIndex((item) => item._id === current);
     setHighlightPokemonIndex(index);
   }, [current, displayPokemonList]);
-
-  // filters list of pokemon on modal
-  useEffect(() => {
-    let tempList = modalList;
-    tempList = tempList.filter((item) => item.startsWith(modalSearch));
-    setDynamicModalList(tempList);
-  }, [modalSearch]);
 
   // Whenever user list changes, update display list
   useEffect(() => {
@@ -147,7 +140,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
     // Reset Error Checking
     setFormErrorMessage("");
     setErrors({});
-    setModalSearch("");
 
     // Reset Move Sets
     setCurrentPokemonMoves({
@@ -156,8 +148,26 @@ export default function MyPokemon({ setPage, setUser, user }) {
       chargedMoves: [],
     });
 
-    // TO-DO: Add pokemon to user list on database
     await updateList(tempList);
+  };
+
+  // Delete pokemon from list
+  const removePokemon = async (name) => {
+    let list = userPokemonList;
+    console.log(list);
+    console.log(name);
+    const index = list.findIndex((item) => item.name === name);
+    console.log(index);
+
+    if (index > -1) {
+      list.splice(index, 1);
+    }
+
+    console.log(list);
+
+    setUserPokemonList(list);
+    setCurrent("");
+    await updateList(list);
   };
 
   // API to update userPokemonList
@@ -284,6 +294,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
     setPokemonMoveData(moveList);
   };
 
+  // Dynamically updates pokemon moves in modal
   const modalDisplayPokemonMoves = (e) => {
     console.log(e.target.value);
     const name = e.target.value;
@@ -358,6 +369,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
                       displayPokemonList[highlightPokemonIndex]?.chargedMove
                     }
                     types={displayPokemonList[highlightPokemonIndex]?.types}
+                    removePokemon={removePokemon}
                   />
                 ) : (
                   <EmptyPokemonHighlight />
@@ -377,15 +389,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
           <Form>
             <Form.Group>
               <Form.Label>Select Pokemon</Form.Label>
-              <div>
-                <Form.Control
-                  className={styles.searchFormControl}
-                  placeholder="Type to filter list"
-                  onChange={(e) => {
-                    setModalSearch(e.target.value);
-                  }}
-                />
-              </div>
               <Form.Select
                 className={styles.formSelect}
                 onChange={(e) => modalDisplayPokemonMoves(e)}

@@ -1,24 +1,22 @@
 /* Container */
 .container {
-  display: flex;
-  margin: 10px auto;
+  padding: 0;
+  margin: 15px;
 }
 
 .container img {
-  width: 30px;
-  margin-right: 10px;
+  width: 35px;
 }
 
-.left {
-  margin: auto 5% auto 10%;
+.text {
+  margin: 5px 0 0 0;
 }
 
-.right {
-  margin: auto 0;
+.name {
+  margin: 5px 0 0 10px;
+  text-align: left;
 }
 
-/* Progress Bar */
-.bar {
-  width: 40%;
-  margin: auto 2%;
+.flex {
+  display: flex;
 }

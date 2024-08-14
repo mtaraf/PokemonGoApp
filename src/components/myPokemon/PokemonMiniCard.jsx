@@ -17,7 +17,7 @@ export default function PokemonMiniCard({
       }}
     >
       <div className={styles.cardText}>
-        cp <span className={styles.bold}>{cp}</span>
+        <span className={styles.bold}>cp {cp}</span>
       </div>
       <div className={styles.cardImageContainer}>
         <img src={image} className={styles.cardImage} />
