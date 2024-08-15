@@ -103,16 +103,19 @@ export default function RaidDisplay({ name, image, cp, types }) {
         <img src={image} className={styles.image} />
       </div>
       <div className={styles.typeImageContainer}>
-        {types.map((type) => (
+        {types.map((type, index) => (
           <img
             src={pokemonTypes.find((item) => item.label === type).image}
             className={styles.typeImage}
+            key={index}
           />
         ))}
       </div>
-      <div className={styles.title}>{name}</div>
-      <div>
-        CP: {cp[0]} - {cp[1]}
+      <div className={styles.info}>
+        <div className={styles.title}>{name}</div>
+        <div>
+          CP: {cp[0]} - {cp[1]}
+        </div>
       </div>
     </Card>
   );

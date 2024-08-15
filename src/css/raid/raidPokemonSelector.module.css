@@ -3,6 +3,7 @@
   width: 50%;
   margin: 10% auto;
   background-color: #0c1c3e;
+  border: none;
 }
 
 /* Buttons */
@@ -31,6 +32,19 @@
   background-color: #16326e;
 }
 
+.retryButton {
+  margin-left: 42.5%;
+  width: 15%;
+  background-color: #ffa800;
+  color: black;
+  border: none;
+}
+
+.retryButton:hover {
+  background-color: #fdb524;
+  color: black;
+}
+
 /* Modal */
 .modalTitle {
   font-size: 1.5em;
@@ -42,4 +56,9 @@
 
 .modalSelect {
   margin: 10px 0;
+}
+
+/* Images */
+.retryImage {
+  width: 70%;
 }

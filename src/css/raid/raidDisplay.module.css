@@ -35,3 +35,9 @@
   font-size: 1.3em;
   font-weight: 300;
 }
+
+/* Misc */
+.info {
+  margin-left: 2%;
+  margin-bottom: 2%;
+}

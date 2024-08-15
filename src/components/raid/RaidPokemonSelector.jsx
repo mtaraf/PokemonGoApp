@@ -2,8 +2,9 @@ import { Button, Card, Form, Modal } from "react-bootstrap";
 import styles from "../../css/raid/raidPokemonSelector.module.css";
 import { useState } from "react";
 import RaidDisplay from "./RaidDisplay";
+import retry from "../../assets/retry.png";
 
-export default function RaidPokemonSelector({ raidList }) {
+export default function RaidPokemonSelector({ raidList, setRaidSelected }) {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const [displayData, setDisplayData] = useState([]);
@@ -40,18 +41,29 @@ export default function RaidPokemonSelector({ raidList }) {
 
     handleClose();
     setDisplay(true);
+    setRaidSelected(true);
   };
 
   return (
     <>
       <Card className={styles.container}>
         {display ? (
-          <RaidDisplay
-            name={displayData.names.English}
-            cp={displayData.cpRange}
-            image={displayData.assets.image}
-            types={displayData.types}
-          />
+          <div>
+            <RaidDisplay
+              name={displayData.names.English}
+              cp={displayData.cpRange}
+              image={displayData.assets.image}
+              types={displayData.types}
+            />
+            <Button
+              className={styles.retryButton}
+              onClick={() => {
+                setShow(true);
+              }}
+            >
+              <img src={retry} className={styles.retryImage} />
+            </Button>
+          </div>
         ) : (
           <Button className={styles.button} onClick={() => handleOpen()}>
             +

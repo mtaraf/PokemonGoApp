@@ -7,7 +7,11 @@ import CurrentRaids from "./CurrentRaids";
 import { useEffect, useState } from "react";
 
 export default function RaidCalculator({ setPage, setUser, user }) {
+  // Raid List
   const [raidList, setRaidList] = useState();
+
+  // Error Checking
+  const [raidSelected, setRaidSelected] = useState(false);
 
   // API for current raids
   const raidApi =
@@ -40,11 +44,17 @@ export default function RaidCalculator({ setPage, setUser, user }) {
             <Row>
               <Col md={6}>
                 {/* Raid Pokemon Selector */}
-                <RaidPokemonSelector raidList={raidList} />
+                <RaidPokemonSelector
+                  raidList={raidList}
+                  setRaidSelected={setRaidSelected}
+                />
               </Col>
               <Col md={6}>
                 {/* Recommended Pokemon */}
-                <RecommendedRaidPokemon />
+                <RecommendedRaidPokemon
+                  raidSelected={raidSelected}
+                  user={user}
+                />
               </Col>
             </Row>
             <Row>
