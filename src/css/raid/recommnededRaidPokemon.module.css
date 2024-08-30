@@ -1,8 +1,14 @@
 /* Container */
-.container {
+.containerDarkMode {
   margin: 10% 5% 10% 0;
   background-color: #0c1c3e;
-  border: 1px solid white;
+  border: 1px solid #ffa800;
+}
+
+.containerLightMode {
+  margin: 10% 5% 10% 0;
+  background-color: #124e83;
+  border: 1px solid #ffa800;
 }
 
 /* Title */

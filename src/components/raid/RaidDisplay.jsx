@@ -1,7 +1,7 @@
 import { Card } from "react-bootstrap";
 import styles from "../../css/raid/raidDisplay.module.css";
 
-export default function RaidDisplay({ name, image, cp, types }) {
+export default function RaidDisplay({ name, image, cp, types, user }) {
   // TO-DO: Move to DB
   const pokemonTypes = [
     {
@@ -98,7 +98,11 @@ export default function RaidDisplay({ name, image, cp, types }) {
   ];
 
   return (
-    <Card className={styles.container}>
+    <Card
+      className={
+        user?.mode ? styles.containerDarkMode : styles.containerLightMode
+      }
+    >
       <div className={styles.imageContainer}>
         <img src={image} className={styles.image} />
       </div>

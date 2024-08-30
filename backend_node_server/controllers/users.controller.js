@@ -2,7 +2,7 @@ const Users = require("../models/users.model.js");
 
 const getUser = async (req, res) => {
   try {
-    const { username, password } = req.params;
+    const { username, password, mode } = req.params;
     const user = await Users.findOne({
       username: username,
       password: password,

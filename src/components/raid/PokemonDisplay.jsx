@@ -2,9 +2,13 @@ import { Card } from "react-bootstrap";
 import styles from "../../css/raid/pokemonDisplay.module.css";
 import pokeball from "../../assets/pokeball.jpg";
 
-export default function PokemonDisplay({ image, name, cp }) {
+export default function PokemonDisplay({ image, name, cp, user }) {
   return (
-    <Card className={styles.container}>
+    <Card
+      className={
+        user.mode ? styles.containerDarkMode : styles.containerLightMode
+      }
+    >
       {name ? (
         <div className={styles.flex}>
           <div className={styles.imageContainer}>

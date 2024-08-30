@@ -1,0 +1,32 @@
+/* DropDown */
+.dropDown {
+}
+
+.dropDownToggle {
+  background-color: #ffa800;
+  border: none;
+}
+
+.dropDownToggle:focus {
+  background-color: #ffa800;
+}
+
+.dropDownMenu {
+}
+
+/* Card */
+.card {
+  border: none;
+}
+
+.card img {
+  width: 30%;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+/* Misc */
+.darkModeSwitch {
+  margin-left: 10px;
+}

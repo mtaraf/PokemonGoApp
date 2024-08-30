@@ -1,10 +1,20 @@
 /* Container */
-.container {
+.containerDarkMode {
   display: flex;
   margin: 10px;
   height: auto;
   background-color: #0f224a;
   color: white;
+  padding: 5px;
+}
+
+.containerLightMode {
+  display: flex;
+  margin: 10px;
+  height: auto;
+  background-color: #124e83;
+  color: white;
+  padding: 5px;
 }
 
 .flex {

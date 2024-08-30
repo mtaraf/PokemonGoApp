@@ -1,7 +1,14 @@
 /* Container */
-.container {
+.containerDarkMode {
   margin: 20px 0;
   background-color: #0c1c3e;
+  border-radius: 0%;
+  border-top: none;
+}
+
+.containerLightMode {
+  margin: 20px 0;
+  background-color: #1c4d79;
   border-radius: 0%;
   border-top: none;
 }
@@ -17,10 +24,19 @@
   margin-bottom: 20px;
 }
 
-.subTitle {
+.subTitleDarkMode {
   color: #ffa800;
   font-size: 1.7em;
   margin-left: 2%;
   background-color: #0f224a;
   width: 96%;
+}
+
+.subTitleLightMode {
+  color: #ffa800;
+  font-size: 1.7em;
+  margin-left: 2%;
+  background-color: #1c4d79;
+  width: 96%;
+  text-decoration: underline;
 }

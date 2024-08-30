@@ -4,7 +4,11 @@ import { useState } from "react";
 import RaidDisplay from "./RaidDisplay";
 import retry from "../../assets/retry.png";
 
-export default function RaidPokemonSelector({ raidList, setRaidSelected }) {
+export default function RaidPokemonSelector({
+  raidList,
+  setRaidSelected,
+  user,
+}) {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const [displayData, setDisplayData] = useState([]);
@@ -46,7 +50,11 @@ export default function RaidPokemonSelector({ raidList, setRaidSelected }) {
 
   return (
     <>
-      <Card className={styles.container}>
+      <Card
+        className={
+          user.mode ? styles.containerDarkMode : styles.containerLightMode
+        }
+      >
         {display ? (
           <div>
             <RaidDisplay
@@ -54,6 +62,7 @@ export default function RaidPokemonSelector({ raidList, setRaidSelected }) {
               cp={displayData.cpRange}
               image={displayData.assets.image}
               types={displayData.types}
+              user={user}
             />
             <Button
               className={styles.retryButton}
@@ -65,7 +74,12 @@ export default function RaidPokemonSelector({ raidList, setRaidSelected }) {
             </Button>
           </div>
         ) : (
-          <Button className={styles.button} onClick={() => handleOpen()}>
+          <Button
+            className={
+              user.mode ? styles.buttonDarkMode : styles.buttonLightMode
+            }
+            onClick={() => handleOpen()}
+          >
             +
           </Button>
         )}

@@ -16,18 +16,27 @@ export default function RecommendedRaidPokemon({ raidSelected, user }) {
 
   return (
     <>
-      <Card className={styles.container}>
+      <Card
+        className={
+          user.mode ? styles.containerDarkMode : styles.containerLightMode
+        }
+      >
         <div className={styles.title}>Best Pokemon</div>
         <Row>
           <Col xl={6} lg={12} md={12} sm={12}>
-            <PokemonDisplay image={articuno} name="articuno" cp="1000" />
-            <PokemonDisplay image={articuno} name="" cp="1000" />
-            <PokemonDisplay image={articuno} name="" cp="1000" />
+            <PokemonDisplay
+              image={articuno}
+              name="articuno"
+              cp="1000"
+              user={user}
+            />
+            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
+            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
           </Col>
           <Col xl={6} lg={12} md={12} sm={12}>
-            <PokemonDisplay image={articuno} name="" cp="1000" />
-            <PokemonDisplay image={articuno} name="" cp="1000" />
-            <PokemonDisplay image={articuno} name="" cp="1000" />
+            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
+            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
+            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
           </Col>
         </Row>
       </Card>

@@ -12,6 +12,11 @@ const UsersSchema = mongoose.Schema(
       type: String,
       required: [true, "Please enter password"],
     },
+
+    mode: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true, // CreatedAt and UpdatedAt

@@ -1,13 +1,20 @@
 /* Container */
-.container {
+.containerDarkMode {
   width: 50%;
   margin: 10% auto;
   background-color: #0c1c3e;
   border: none;
 }
 
+.containerLightMode {
+  width: 50%;
+  margin: 10% auto;
+  background-color: #1c4d79;
+  border: none;
+}
+
 /* Buttons */
-.button {
+.buttonDarkMode {
   margin: auto;
   background-color: #0f224a;
   border: 2px dashed #ffa800;
@@ -16,8 +23,23 @@
   width: 200px;
 }
 
-.button:hover {
+.buttonDarkMode:hover {
   background-color: #16326e;
+  border: 5px dotted #ffa800;
+  color: #ffa800;
+}
+
+.buttonLightMode {
+  margin: auto;
+  background-color: #1c4d79;
+  border: 2px dashed #ffa800;
+  color: #ffa800;
+  height: 200px;
+  width: 200px;
+}
+
+.buttonLightMode:hover {
+  background-color: #175b97;
   border: 5px dotted #ffa800;
   color: #ffa800;
 }

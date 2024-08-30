@@ -1,7 +1,12 @@
 /* Container */
-.container {
+.containerDarkMode {
   background-color: #0c1c3e;
   height: 50px;
+}
+
+.containerLightMode {
+  height: 50px;
+  background-color: #1c4d79;
 }
 
 .bottomMargin {

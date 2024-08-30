@@ -35,18 +35,26 @@ export default function RaidCalculator({ setPage, setUser, user }) {
   }, []);
 
   return (
-    <Container fluid className={styles.container}>
+    <Container
+      fluid
+      className={
+        user.mode ? styles.containerDarkMode : styles.containerLightMode
+      }
+    >
       <Header setPage={setPage} setUser={setUser} user={user} />
       <Row>
         <Col md={1} />
         <Col md={10}>
-          <Card className={styles.card}>
+          <Card
+            className={user.mode ? styles.cardDarkMode : styles.cardLightMode}
+          >
             <Row>
               <Col md={6}>
                 {/* Raid Pokemon Selector */}
                 <RaidPokemonSelector
                   raidList={raidList}
                   setRaidSelected={setRaidSelected}
+                  user={user}
                 />
               </Col>
               <Col md={6}>
@@ -59,7 +67,7 @@ export default function RaidCalculator({ setPage, setUser, user }) {
             </Row>
             <Row>
               <Col>
-                <CurrentRaids raidList={raidList} />
+                <CurrentRaids raidList={raidList} user={user} />
               </Col>
             </Row>
           </Card>

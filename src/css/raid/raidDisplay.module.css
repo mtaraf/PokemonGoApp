@@ -1,8 +1,16 @@
 /* Container */
-.container {
+.containerDarkMode {
   height: auto;
   margin: 20px 2.5%;
   background-color: #0f224a;
+  color: white;
+  border: 1px solid #ffa800;
+}
+
+.containerLightMode {
+  height: auto;
+  margin: 20px 2.5%;
+  background-color: #1c4d79;
   color: white;
   border: 1px solid #ffa800;
 }

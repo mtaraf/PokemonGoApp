@@ -13,6 +13,7 @@ function App() {
     username: "",
     signedIn: false,
     list: [],
+    mode: false, // light/dark mode, false is light mode
   });
 
   return (

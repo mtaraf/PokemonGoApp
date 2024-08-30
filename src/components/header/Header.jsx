@@ -3,6 +3,7 @@ import styles from "../../css/header/header.module.css";
 import { Button, Navbar, Nav, Container, Modal, Form } from "react-bootstrap";
 import userImage from "../../assets/user.png";
 import { useNavigate } from "react-router-dom";
+import UserDropDown from "./UserDropDown";
 
 export default function Header({ setPage, setUser, user }) {
   const navigate = useNavigate();
@@ -81,12 +82,14 @@ export default function Header({ setPage, setUser, user }) {
         username: e.target.form[0].value,
         list: data[0].list,
         signedIn: true,
+        mode: success.mode,
       });
     } else {
       setUser({
         username: e.target.form[0].value,
         list: [],
         signedIn: true,
+        mode: success.mode,
       });
     }
   };
@@ -183,7 +186,12 @@ export default function Header({ setPage, setUser, user }) {
 
   return (
     <>
-      <Navbar className={styles.container} sticky="top">
+      <Navbar
+        className={
+          user.mode ? styles.containerDarkMode : styles.containerLightMode
+        }
+        sticky="top"
+      >
         <Container>
           <Navbar.Brand className={styles.title}>PokeGo</Navbar.Brand>
           <Nav className="me-auto">
@@ -207,11 +215,12 @@ export default function Header({ setPage, setUser, user }) {
             </Nav.Link>
           </Nav>
           {user?.signedIn ? (
-            <Button className={styles.button}>
-              <div className={styles.userImageContainer}>
-                <img src={userImage} className={styles.userImage} />
-              </div>
-            </Button>
+            // <Button className={styles.button}>
+            //   <div className={styles.userImageContainer}>
+            //     <img src={userImage} className={styles.userImage} />
+            //   </div>
+            // </Button>
+            <UserDropDown user={user} setUser={setUser} />
           ) : (
             <Button className={styles.button} onClick={() => openSignInMenu()}>
               Sign-In

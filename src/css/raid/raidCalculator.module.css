@@ -1,11 +1,21 @@
 /* Container */
-.container {
+.containerLightMode {
   padding: 0;
-  background-color: #0f224a;
+  background-color: rgb(215, 236, 255);
+}
+
+.containerDarkMode {
+  padding: 0;
+  background-color: #1c4d79;
 }
 
 /* Card */
-.card {
+.cardLightMode {
+  background-color: #1c4d79;
+  margin-top: 30px;
+}
+
+.cardDarkMode {
   background-color: #0c1c3e;
   margin-top: 30px;
 }
