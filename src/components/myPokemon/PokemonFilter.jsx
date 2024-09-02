@@ -2,7 +2,12 @@ import { Button, Card, Form, ListGroup } from "react-bootstrap";
 import styles from "../../css/myPokemon/pokemonFilter.module.css";
 import { useEffect, useState } from "react";
 
-export default function PokemonFilter({ setList, userList, displayList }) {
+export default function PokemonFilter({
+  setList,
+  userList,
+  displayList,
+  user,
+}) {
   const [current, setCurrent] = useState(0);
   const [filter, setFilter] = useState([]);
 
@@ -164,12 +169,24 @@ export default function PokemonFilter({ setList, userList, displayList }) {
   ];
 
   return (
-    <Card className={styles.container}>
-      <div className={styles.title}>Order</div>
+    <Card
+      className={
+        user.mode ? styles.containerDarkMode : styles.containerLightMode
+      }
+    >
+      <div className={user.mode ? styles.titleDarkMode : styles.titleLightMode}>
+        Order
+      </div>
       <div>
         <Button
           className={
-            current === 0 ? styles.currentFilterButton : styles.filterButton
+            user.mode
+              ? current === 0
+                ? styles.currentFilterButtonDarkMode
+                : styles.filterButtonDarkMode
+              : current === 0
+              ? styles.currentFilterButtonLightMode
+              : styles.filterButtonLightMode
           }
           onClick={() => {
             setCurrent(0);
@@ -181,7 +198,13 @@ export default function PokemonFilter({ setList, userList, displayList }) {
         </Button>
         <Button
           className={
-            current === 1 ? styles.currentFilterButton : styles.filterButton
+            user.mode
+              ? current === 1
+                ? styles.currentFilterButtonDarkMode
+                : styles.filterButtonDarkMode
+              : current === 1
+              ? styles.currentFilterButtonLightMode
+              : styles.filterButtonLightMode
           }
           onClick={() => {
             setCurrent(1);
@@ -193,7 +216,13 @@ export default function PokemonFilter({ setList, userList, displayList }) {
         </Button>
         <Button
           className={
-            current === 2 ? styles.currentFilterButton : styles.filterButton
+            user.mode
+              ? current === 2
+                ? styles.currentFilterButtonDarkMode
+                : styles.filterButtonDarkMode
+              : current === 2
+              ? styles.currentFilterButtonLightMode
+              : styles.filterButtonLightMode
           }
           onClick={() => {
             setCurrent(2);
@@ -203,10 +232,21 @@ export default function PokemonFilter({ setList, userList, displayList }) {
           <img />
           <div>Favorite</div>
         </Button>
-        <div className={styles.title}>Filters</div>
+        <div
+          className={user.mode ? styles.titleDarkMode : styles.titleLightMode}
+        >
+          Filters
+        </div>
         <Form className={styles.form}>
           {filters.map((item) => (
-            <div className={styles.filterItem} key={item.label}>
+            <div
+              className={
+                user.mode
+                  ? styles.filterItemDarkMode
+                  : styles.filterItemLightMode
+              }
+              key={item.label}
+            >
               <Form.Check
                 id={item.label}
                 onChange={() => changeFilter(item.label)}

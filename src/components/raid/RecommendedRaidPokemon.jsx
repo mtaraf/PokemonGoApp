@@ -8,6 +8,7 @@ export default function RecommendedRaidPokemon({ raidSelected, user }) {
   // Alert
   const [show, setShow] = useState(false);
 
+  // Show alert if raid is selected when user is not signed in
   useEffect(() => {
     if (raidSelected && !user.signedIn) {
       setShow(true);

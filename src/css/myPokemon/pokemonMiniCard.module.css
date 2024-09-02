@@ -1,21 +1,43 @@
 /* Card */
-.card {
+.cardDarkMode {
   width: 20%;
   margin: 10px 2.5%;
-  background-color: #19466d;
+  background-color: #0c1c3e;
   border-color: #cee2f3;
   color: #cee2f3;
 }
 
-.focusedCard {
+.cardLightMode {
   width: 20%;
   margin: 10px 2.5%;
-  background-color: #19466d;
+  background-color: #1c4d79;
+  border-color: #cee2f3;
+  color: #cee2f3;
+}
+
+.focusedCardDarkMode {
+  width: 20%;
+  margin: 10px 2.5%;
+  background-color: #102553;
   border-color: #ffa800;
   color: #ffa800;
 }
 
-.card:hover {
+.focusedCardLightMode {
+  width: 20%;
+  margin: 10px 2.5%;
+  background-color: #1f5686;
+  border-color: #ffa800;
+  color: #ffa800;
+}
+
+.cardDarkMode:hover {
+  color: #ffa800;
+  border-color: #ffa800;
+  cursor: pointer;
+}
+
+.cardLightMode:hover {
   color: #ffa800;
   border-color: #ffa800;
   cursor: pointer;

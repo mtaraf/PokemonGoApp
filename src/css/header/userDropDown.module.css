@@ -12,11 +12,19 @@
 }
 
 .dropDownMenu {
+  background-color: #2667a0;
+}
+
+.profileInfo {
+  border-bottom: 1px solid #ffa800;
+  padding-bottom: 10px;
 }
 
 /* Card */
 .card {
   border: none;
+  background-color: #2667a0;
+  color: #ffa800;
 }
 
 .card img {
@@ -28,5 +36,10 @@
 
 /* Misc */
 .darkModeSwitch {
-  margin-left: 10px;
+  margin: 15px 0 0 10px;
+}
+
+/* Images */
+.profilePic {
+  margin: 0px 5px;
 }

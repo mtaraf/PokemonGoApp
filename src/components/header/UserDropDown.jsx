@@ -27,13 +27,12 @@ export default function UserDropDown({ user, setUser }) {
   return (
     <Dropdown className={styles.dropDown}>
       <Dropdown.Toggle className={styles.dropDownToggle}></Dropdown.Toggle>
-      <Dropdown.Menu className={styles.dropDownMenu}>
+      <Dropdown.Menu className={styles.dropDownMenu} align="end">
         <Card className={styles.card}>
-          <div>
-            <img src={defaultPic} />
+          <div className={styles.profileInfo}>
+            <img src={defaultPic} className={styles.profilePic} />
             {user.username}
           </div>
-          <hr />
           <div>
             <Form.Check
               label="Dark Mode"

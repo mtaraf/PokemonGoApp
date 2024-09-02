@@ -88,20 +88,21 @@ export default function MyPokemon({ setPage, setUser, user }) {
 
   // Add new pokemon item to userPokemonList and updates database with information
   const addPokemonToList = async (e) => {
+    console.log(e);
     // Error checking on form
     const passed = checkValues(
+      e.target.form[1].value,
       e.target.form[2].value,
-      e.target.form[3].value,
+      e.target.form[5].value,
       e.target.form[6].value,
-      e.target.form[7].value,
-      e.target.form[8].value
+      e.target.form[7].value
     );
 
     if (!passed) {
       return;
     }
 
-    const pokeName = await e.target.form[1].value;
+    const pokeName = await e.target.form[0].value;
 
     //Get image and types from data
     const pokeData = await getSpecificPokemon(
@@ -111,23 +112,26 @@ export default function MyPokemon({ setPage, setUser, user }) {
     let pokemonImage = "";
     let pokemonTypes = [];
 
-    if (pokeData !== null) {
+    if (pokeData === null) {
+      console.log("Error obtaining pokeData for specific pokemon");
+      return;
+    } else {
       pokemonImage = pokeData.image;
       pokemonTypes = pokeData.type;
     }
 
     // Create pokemon object to add to list and database
     const newPokemon = {
-      name: e.target.form[1].value,
-      cp: e.target.form[2].value,
-      candy: e.target.form[3].value,
-      fastMove: e.target.form[4].value,
-      chargedMove: e.target.form[5].value,
-      attack: e.target.form[6].value,
-      defense: e.target.form[7].value,
-      hp: e.target.form[8].value,
-      shiny: e.target.form[9].checked,
-      shadow: e.target.form[10].checked,
+      name: e.target.form[0].value,
+      cp: e.target.form[1].value,
+      candy: e.target.form[2].value,
+      fastMove: e.target.form[3].value,
+      chargedMove: e.target.form[4].value,
+      attack: e.target.form[5].value,
+      defense: e.target.form[6].value,
+      hp: e.target.form[7].value,
+      shiny: e.target.form[8].checked,
+      shadow: e.target.form[9].checked,
       image: pokemonImage,
       types: pokemonTypes,
     };
@@ -304,22 +308,34 @@ export default function MyPokemon({ setPage, setUser, user }) {
   };
 
   return (
-    <Container fluid className={styles.container}>
+    <Container
+      fluid
+      className={
+        user.mode ? styles.containerDarkMode : styles.containerLightMode
+      }
+    >
       <Header setPage={setPage} setUser={setUser} user={user} />
       <Row>
         <Col lg={1} />
         <Col lg={10}>
-          <Card className={styles.card}>
+          <Card
+            className={user.mode ? styles.cardDarkMode : styles.cardLightMode}
+          >
             <Row>
               <Col md={3} sm={12}>
                 <PokemonFilter
                   setList={setDisplayPokemonList}
                   userList={userPokemonList}
                   displayList={displayPokemonList}
+                  user={user}
                 />
               </Col>
               <Col md={6} sm={12}>
-                <Card className={styles.cards}>
+                <Card
+                  className={
+                    user.mode ? styles.cardsDarkMode : styles.cardsLightMode
+                  }
+                >
                   <div className={styles.mainTitle}>My Pokemon</div>
                   <Alert
                     dismissible
@@ -333,7 +349,11 @@ export default function MyPokemon({ setPage, setUser, user }) {
                   </Alert>
                   <Row>
                     <Button
-                      className={styles.button}
+                      className={
+                        user.mode
+                          ? styles.buttonDarkMode
+                          : styles.buttonLightMode
+                      }
                       onClick={() => openModal()}
                     >
                       +
@@ -347,6 +367,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
                         image={item.image}
                         setCurrent={setCurrent}
                         current={current}
+                        user={user}
                       />
                     ))}
                   </Row>
@@ -370,6 +391,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
                     }
                     types={displayPokemonList[highlightPokemonIndex]?.types}
                     removePokemon={removePokemon}
+                    user={user}
                   />
                 ) : (
                   <EmptyPokemonHighlight />

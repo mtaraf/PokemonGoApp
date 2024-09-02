@@ -1,11 +1,22 @@
 /* Container */
-.container {
-  background-color: #0f224a;
+.containerDarkMode {
+  background-color: #1c4d79;
   padding: 0;
 }
 
-.card {
-  background-color: #19466d;
+.containerLightMode {
+  background-color: rgb(215, 236, 255);
+  padding: 0;
+}
+
+.cardDarkMode {
+  /* background-color: #19466d; */
+  background-color: #0c1c3e;
+  margin: 20px 0;
+}
+
+.cardLightMode {
+  background-color: #1c4d79;
   margin: 20px 0;
 }
 
@@ -24,8 +35,14 @@
 }
 
 /* Cards */
-.cards {
-  background-color: #19466d;
+.cardsDarkMode {
+  background-color: #0c1c3e;
+  height: 100%;
+  border: none;
+}
+
+.cardsLightMode {
+  background-color: #1c4d79;
   height: 100%;
   border: none;
 }
@@ -35,18 +52,33 @@
 }
 
 /* Button */
-.button {
+.buttonDarkMode {
   width: 20%;
   margin: 10px 2.5%;
   border: 1px dashed #cee2f3;
   color: #cee2f3;
   font-size: 4em;
   text-align: center;
-  background-color: #19466d;
+  background-color: #0c1c3e;
 }
 
-.button:hover {
-  background-color: #1f5585;
+.buttonLightMode {
+  width: 20%;
+  margin: 10px 2.5%;
+  border: 1px dashed #cee2f3;
+  color: #cee2f3;
+  font-size: 4em;
+  text-align: center;
+  background-color: #1c4d79;
+}
+
+.buttonDarkMode:hover {
+  background-color: #102553;
+  border: 1px dashed #cee2f3;
+}
+
+.buttonLightMode:hover {
+  background-color: #1f5686;
   border: 1px dashed #cee2f3;
 }
 

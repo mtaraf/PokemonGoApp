@@ -1,5 +1,12 @@
 /* Container */
-.container {
+.containerDarkMode {
+  height: fit-content;
+  margin: 10px 20px;
+  border: none;
+  background-color: #0c1c3e;
+}
+
+.containerLightMode {
   height: fit-content;
   margin: 10px 20px;
   border: none;
@@ -7,17 +14,34 @@
 }
 
 /* Title */
-.title {
+.titleDarkMode {
   text-align: center;
   font-size: 1.5em;
-  background-color: #1f5585;
+  background-color: #0c1c3e;
+  color: #ffa800;
+  border-bottom: 1px solid #ffa800;
+  font-weight: 500;
+}
+
+.titleLightMode {
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #1c4d79;
   color: #ffa800;
   border-bottom: 1px solid #ffa800;
   font-weight: 500;
 }
 
 /* Buttons */
-.filterButton {
+.filterButtonDarkMode {
+  width: 100%;
+  display: flex;
+  border: none;
+  border-radius: 0;
+  background-color: #0c1c3e;
+}
+
+.filterButtonLightMode {
   width: 100%;
   display: flex;
   border: none;
@@ -25,25 +49,50 @@
   background-color: #1c4d79;
 }
 
-.filterButton:hover {
-  background-color: #1f5585;
+.filterButtonDarkMode:hover {
+  background-color: #102553;
 }
 
-.currentFilterButton {
+.filterButtonLightMode:hover {
+  background-color: #1f5686;
+}
+
+.currentFilterButtonDarkMode {
   width: 100%;
   display: flex;
   border: none;
   border-radius: 0;
+  background-color: #0c1c3e;
+  color: #ffa800;
+}
+
+.currentFilterButtonLightMode {
+  width: 100%;
+  display: flex;
+  border: none;
+  border-radius: 0;
+  color: #ffa800;
   background-color: #1c4d79;
+}
+
+.currentFilterButtonDarkMode:hover {
+  background-color: #102553;
   color: #ffa800;
 }
 
-.currentFilterButton:hover {
-  background-color: #1f5585;
+.currentFilterButtonLightMode:hover {
+  background-color: #1f5686;
   color: #ffa800;
 }
 
-.filterItem {
+.filterItemDarkMode {
+  display: flex;
+  background-color: #0c1c3e;
+  color: white;
+  padding-left: 10px;
+}
+
+.filterItemLightMode {
   display: flex;
   background-color: #1c4d79;
   color: white;

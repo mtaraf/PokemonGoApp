@@ -8,10 +8,19 @@ export default function PokemonMiniCard({
   setCurrent,
   id,
   current,
+  user,
 }) {
   return (
     <Card
-      className={id === current ? styles.focusedCard : styles.card}
+      className={
+        user.mode
+          ? id === current
+            ? styles.focusedCardDarkMode
+            : styles.cardDarkMode
+          : id === current
+          ? styles.focusedCardLightMode
+          : styles.cardLightMode
+      }
       onClick={() => {
         setCurrent(id);
       }}

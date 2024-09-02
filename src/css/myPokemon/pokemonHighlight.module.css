@@ -1,5 +1,12 @@
 /* Card */
-.card {
+.cardDarkMode {
+  display: block;
+  background-color: #0c1c3e;
+  margin: 10px 20px;
+  color: #cee2f3;
+}
+
+.cardLightMode {
   display: block;
   background-color: #1c4d79;
   margin: 10px 20px;
@@ -27,21 +34,21 @@
 /* Dropdown */
 .dropdown {
   margin: 10px 5% 0 25%;
-  background-color: #1c4d79;
+  background-color: inherit;
 }
 
 .dropdownButton {
-  background-color: #1c4d79;
+  background-color: inherit;
   border: 1px solid #cee2f3;
 }
 
 .dropdownButton:hover {
-  background-color: #1f5585;
+  background-color: inherit;
   border: 1px solid #cee2f3;
 }
 
 .dropdownButton:focus {
-  background-color: #1f5585;
+  background-color: inherit;
   border: 1px solid #cee2f3;
 }
 
@@ -64,7 +71,6 @@
   width: 40%;
   height: auto;
   margin: 0 auto 5px auto;
-  background-color: #1c4d79;
 }
 
 .mainImage {
@@ -72,7 +78,6 @@
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  border: 1px solid #cee2f3;
 }
 
 .smallImageContainer {
@@ -139,7 +144,7 @@
 }
 
 .ivItem {
-  background-color: #1c4d79;
+  background-color: inherit;
   border: none;
   color: #cee2f3;
 }

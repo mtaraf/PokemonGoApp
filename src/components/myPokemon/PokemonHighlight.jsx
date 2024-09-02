@@ -23,6 +23,7 @@ export default function PokemonHighlight({
   chargedMove,
   types,
   removePokemon,
+  user,
 }) {
   // Delete Modal
   const [show, setShow] = useState(false);
@@ -180,14 +181,14 @@ export default function PokemonHighlight({
 
   return (
     <>
-      <Card className={styles.card}>
+      <Card className={user.mode ? styles.cardDarkMode : styles.cardLightMode}>
         <div className={styles.flex}>
           <span className={styles.cp}>cp {cp}</span>
           <Dropdown className={styles.dropdown}>
             <Dropdown.Toggle
               className={styles.dropdownButton}
             ></Dropdown.Toggle>
-            <Dropdown.Menu className={styles.dropdownMenu}>
+            <Dropdown.Menu className={styles.dropdownMenu} align="end">
               <Dropdown.Item
                 className={styles.dropdownItem}
                 onClick={() => {
