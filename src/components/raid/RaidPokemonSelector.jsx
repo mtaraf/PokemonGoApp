@@ -6,6 +6,7 @@ import retry from "../../assets/retry.png";
 
 export default function RaidPokemonSelector({
   raidList,
+  setIsRaidSelected,
   setRaidSelected,
   user,
 }) {
@@ -45,7 +46,8 @@ export default function RaidPokemonSelector({
 
     handleClose();
     setDisplay(true);
-    setRaidSelected(true);
+    setIsRaidSelected(true);
+    setRaidSelected(data);
   };
 
   return (

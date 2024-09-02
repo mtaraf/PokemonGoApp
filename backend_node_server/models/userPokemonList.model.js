@@ -18,10 +18,10 @@ const UserPokemonListSchema = mongoose.Schema(
           type: String,
         },
         fastMove: {
-          type: String,
+          type: Object,
         },
         chargedMove: {
-          type: String,
+          type: Object,
         },
         attack: {
           type: String,

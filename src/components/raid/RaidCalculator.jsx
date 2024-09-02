@@ -11,7 +11,8 @@ export default function RaidCalculator({ setPage, setUser, user }) {
   const [raidList, setRaidList] = useState();
 
   // Error Checking
-  const [raidSelected, setRaidSelected] = useState(false);
+  const [isRaidSelected, setIsRaidSelected] = useState(false);
+  const [raidSelected, setRaidSelected] = useState();
 
   // API for current raids
   const raidApi =
@@ -53,6 +54,7 @@ export default function RaidCalculator({ setPage, setUser, user }) {
                 {/* Raid Pokemon Selector */}
                 <RaidPokemonSelector
                   raidList={raidList}
+                  setIsRaidSelected={setIsRaidSelected}
                   setRaidSelected={setRaidSelected}
                   user={user}
                 />
@@ -60,6 +62,7 @@ export default function RaidCalculator({ setPage, setUser, user }) {
               <Col md={6}>
                 {/* Recommended Pokemon */}
                 <RecommendedRaidPokemon
+                  isRaidSelected={isRaidSelected}
                   raidSelected={raidSelected}
                   user={user}
                 />

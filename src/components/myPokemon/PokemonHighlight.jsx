@@ -28,11 +28,11 @@ export default function PokemonHighlight({
   // Delete Modal
   const [show, setShow] = useState(false);
 
-  // Moves
-  const [chargedMoves, setChargedMoves] = useState([]);
-  const [fastMoves, setFastMoves] = useState([]);
-  const [fast, setFast] = useState({});
-  const [charged, setCharged] = useState({});
+  // // Moves
+  // const [chargedMoves, setChargedMoves] = useState([]);
+  // const [fastMoves, setFastMoves] = useState([]);
+  // const [fast, setFast] = useState({});
+  // const [charged, setCharged] = useState({});
 
   const pokemonTypes = [
     {
@@ -128,52 +128,52 @@ export default function PokemonHighlight({
     },
   ];
 
-  const EXTERNAL_FAST_MOVES_API = "https://pogoapi.net/api/v1/fast_moves.json";
-  const EXTERNAL_CHARGED_MOVES_API =
-    "https://pogoapi.net/api/v1/charged_moves.json";
+  // const EXTERNAL_FAST_MOVES_API = "https://pogoapi.net/api/v1/fast_moves.json";
+  // const EXTERNAL_CHARGED_MOVES_API =
+  //   "https://pogoapi.net/api/v1/charged_moves.json";
 
-  useEffect(() => {
-    getChargedMoves();
-    getFastMoves();
-  }, []);
+  // useEffect(() => {
+  //   getChargedMoves();
+  //   getFastMoves();
+  // }, []);
 
-  useEffect(() => {
-    setFast(fastMoves.find((item) => item.name === fastMove));
-    setCharged(chargedMoves.find((item) => item.name === chargedMove));
-  }, [fastMove, chargedMove]);
+  // useEffect(() => {
+  //   setFast(fastMoves.find((item) => item.name === fastMove));
+  //   setCharged(chargedMoves.find((item) => item.name === chargedMove));
+  // }, [fastMove, chargedMove]);
 
   // External API to GET fast_moves
-  const getFastMoves = async () => {
-    try {
-      const response = await fetch(EXTERNAL_FAST_MOVES_API);
-      const data = await response.json();
+  // const getFastMoves = async () => {
+  //   try {
+  //     const response = await fetch(EXTERNAL_FAST_MOVES_API);
+  //     const data = await response.json();
 
-      if (data !== null) {
-        setFastMoves(data);
-        setFast(data.find((item) => item.name === fastMove));
-      }
-      return null;
-    } catch (error) {
-      console.log("Error obtaining specific pokemon data: " + e);
-      return null;
-    }
-  };
+  //     if (data !== null) {
+  //       setFastMoves(data);
+  //       setFast(data.find((item) => item.name === fastMove));
+  //     }
+  //     return null;
+  //   } catch (error) {
+  //     console.log("Error obtaining specific pokemon data: " + e);
+  //     return null;
+  //   }
+  // };
 
-  // External API to GET charged_moves
-  const getChargedMoves = async () => {
-    try {
-      const response = await fetch(EXTERNAL_CHARGED_MOVES_API);
-      const data = await response.json();
+  // // External API to GET charged_moves
+  // const getChargedMoves = async () => {
+  //   try {
+  //     const response = await fetch(EXTERNAL_CHARGED_MOVES_API);
+  //     const data = await response.json();
 
-      if (data !== null) {
-        setChargedMoves(data);
-      }
-      return null;
-    } catch (error) {
-      console.log("Error obtaining specific pokemon data: " + e);
-      return null;
-    }
-  };
+  //     if (data !== null) {
+  //       setChargedMoves(data);
+  //     }
+  //     return null;
+  //   } catch (error) {
+  //     console.log("Error obtaining specific pokemon data: " + e);
+  //     return null;
+  //   }
+  // };
 
   const closeModal = () => {
     setShow(false);
@@ -227,16 +227,19 @@ export default function PokemonHighlight({
         <div>
           <div className={styles.subTitle}>Moves</div>
           <PokemonMove
-            type={pokemonTypes.find((item) => item.label === fast?.type)?.image}
-            name={fast?.name}
-            value={fast?.power}
+            type={
+              pokemonTypes.find((item) => item.label === fastMove?.type)?.image
+            }
+            name={fastMove?.name}
+            value={fastMove?.power}
           />
           <PokemonMove
             type={
-              pokemonTypes.find((item) => item.label === charged?.type)?.image
+              pokemonTypes.find((item) => item.label === chargedMove?.type)
+                ?.image
             }
-            name={charged?.name}
-            value={charged?.power}
+            name={chargedMove?.name}
+            value={chargedMove?.power}
           />
         </div>
 

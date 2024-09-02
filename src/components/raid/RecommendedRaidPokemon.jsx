@@ -4,16 +4,248 @@ import PokemonDisplay from "./PokemonDisplay";
 import articuno from "../../assets/articuno.jpg";
 import { useEffect, useState } from "react";
 
-export default function RecommendedRaidPokemon({ raidSelected, user }) {
+export default function RecommendedRaidPokemon({
+  isRaidSelected,
+  raidSelected,
+  user,
+}) {
   // Alert
   const [show, setShow] = useState(false);
 
-  // Show alert if raid is selected when user is not signed in
+  // Pokemon Typing Map
+  const map = new Map();
+
+  // Initialize maps on create
   useEffect(() => {
-    if (raidSelected && !user.signedIn) {
-      setShow(true);
+    // Normal
+    map.set("Normal", [
+      { effect: 2, type: "Fighting" },
+      { effect: 0, type: "Ghost" },
+    ]);
+
+    // Fire
+    map.set("Fire", [
+      { effect: 0.5, type: "Fire" },
+      { effect: 2, type: "Water" },
+      { effect: 0.5, type: "Grass" },
+      { effect: 0.5, type: "Ice" },
+      { effect: 2, type: "Ground" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 2, type: "Rock" },
+      { effect: 0.5, type: "Steel" },
+      { effect: 0.5, type: "Fairy" },
+    ]);
+
+    // Water
+    map.set("Water", [
+      { effect: 0.5, type: "Fire" },
+      { effect: 0.5, type: "Water" },
+      { effect: 2, type: "Electric" },
+      { effect: 2, type: "Grass" },
+      { effect: 0.5, type: "Ice" },
+      { effect: 0.5, type: "Steel" },
+    ]);
+
+    // Electric
+    map.set("Electric", [
+      { effect: 0.5, type: "Electric" },
+      { effect: 2, type: "Ground" },
+      { effect: 0.5, type: "Flying" },
+      { effect: 0.5, type: "Steel" },
+    ]);
+
+    // Grass
+    map.set("Grass", [
+      { effect: 2, type: "Fire" },
+      { effect: 0.5, type: "Water" },
+      { effect: 0.5, type: "Electric" },
+      { effect: 0.5, type: "Grass" },
+      { effect: 2, type: "Ice" },
+      { effect: 2, type: "Poison" },
+      { effect: 0.5, type: "Ground" },
+      { effect: 2, type: "Flying" },
+      { effect: 2, type: "Bug" },
+    ]);
+
+    // Ice
+    map.set("Ice", [
+      { effect: 2, type: "Fire" },
+      { effect: 0.5, type: "Ice" },
+      { effect: 2, type: "Fighting" },
+      { effect: 2, type: "Rock" },
+      { effect: 2, type: "Steel" },
+    ]);
+
+    // Fighting
+    map.set("Fighting", [
+      { effect: 2, type: "Flying" },
+      { effect: 2, type: "Psychic" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 0.5, type: "Rock" },
+      { effect: 0.5, type: "Dark" },
+      { effect: 2, type: "Fairy" },
+    ]);
+
+    // Poison
+    map.set("Poison", [
+      { effect: 0.5, type: "Grass" },
+      { effect: 0.5, type: "Fighting" },
+      { effect: 0.5, type: "Poison" },
+      { effect: 2, type: "Ground" },
+      { effect: 2, type: "Psychic" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 0.5, type: "Fairy" },
+    ]);
+
+    // Ground
+    map.set("Ground", [
+      { effect: 2, type: "Water" },
+      { effect: 0, type: "Electric" },
+      { effect: 2, type: "Grass" },
+      { effect: 2, type: "Ice" },
+      { effect: 0.5, type: "Poison" },
+      { effect: 0.5, type: "Rock" },
+    ]);
+
+    // Flying
+    map.set("Flying", [
+      { effect: 0.5, type: "Fighting" },
+      { effect: 2, type: "Electric" },
+      { effect: 0.5, type: "Grass" },
+      { effect: 2, type: "Ice" },
+      { effect: 0, type: "Ground" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 2, type: "Rock" },
+    ]);
+
+    // Psychic
+    map.set("Psychic", [
+      { effect: 0.5, type: "Fighting" },
+      { effect: 0.5, type: "Psychic" },
+      { effect: 2, type: "Bug" },
+      { effect: 2, type: "Ghost" },
+      { effect: 2, type: "Dark" },
+    ]);
+
+    // Bug
+    map.set("Bug", [
+      { effect: 2, type: "Fire" },
+      { effect: 0.5, type: "Grass" },
+      { effect: 0.5, type: "Fighting" },
+      { effect: 0.5, type: "Ground" },
+      { effect: 2, type: "Flying" },
+      { effect: 2, type: "Rock" },
+    ]);
+
+    // Rock
+    map.set("Rock", [
+      { effect: 0.5, type: "Normal" },
+      { effect: 0.5, type: "Fire" },
+      { effect: 2, type: "Water" },
+      { effect: 2, type: "Grass" },
+      { effect: 2, type: "Fighting" },
+      { effect: 0.5, type: "Poison" },
+      { effect: 2, type: "Ground" },
+      { effect: 0.5, type: "Flying" },
+      { effect: 2, type: "Steel" },
+    ]);
+
+    // Ghost
+    map.set("Ghost", [
+      { effect: 0, type: "Normal" },
+      { effect: 0, type: "Fighting" },
+      { effect: 0.5, type: "Poison" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 2, type: "Ghost" },
+      { effect: 2, type: "Dark" },
+    ]);
+
+    // Dragon
+    map.set("Dragon", [
+      { effect: 0.5, type: "Fire" },
+      { effect: 0.5, type: "Water" },
+      { effect: 0.5, type: "Electric" },
+      { effect: 0.5, type: "Grass" },
+      { effect: 2, type: "Ice" },
+      { effect: 2, type: "Dragon" },
+      { effect: 2, type: "Fairy" },
+    ]);
+
+    // Steel
+    map.set("Steel", [
+      { effect: 0.5, type: "Normal" },
+      { effect: 2, type: "Fire" },
+      { effect: 0.5, type: "Ice" },
+      { effect: 0.5, type: "Grass" },
+      { effect: 2, type: "Fighting" },
+      { effect: 0, type: "Poison" },
+      { effect: 2, type: "Ground" },
+      { effect: 0.5, type: "Flying" },
+      { effect: 0.5, type: "Psychic" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 0.5, type: "Rock" },
+      { effect: 0.5, type: "Dragon" },
+      { effect: 0.5, type: "Steel" },
+      { effect: 0.5, type: "Fairy" },
+    ]);
+
+    // Fairy
+    map.set("Fairy", [
+      { effect: 0.5, type: "Fighting" },
+      { effect: 2, type: "Poison" },
+      { effect: 0.5, type: "Bug" },
+      { effect: 0, type: "Dragon" },
+      { effect: 0.5, type: "Dark" },
+      { effect: 2, type: "Steel" },
+    ]);
+  }, []);
+
+  useEffect(() => {
+    if (raidSelected !== undefined) {
+      console.log("Raid selected: " + raidSelected.id);
+      calculateTeam(raidSelected);
     }
   }, [raidSelected]);
+
+  // Show alert if raid is selected when user is not signed in
+  useEffect(() => {
+    if (isRaidSelected && !user.signedIn) {
+      setShow(true);
+    }
+  }, [isRaidSelected]);
+
+  // Calculate the best pokemon for the raid selected
+  const calculateTeam = (data) => {
+    // const raidTypes = [];
+
+    // let superEffective;
+    // let ineffective;
+
+    // raidTypes.forEach((type) => {
+    //   const counters = map.get(type);
+    //   superEffective = counters.filter((obj) => obj.effect === 2);
+    //   ineffective = counters.filter(
+    //     (obj) => obj.effect === 0 || obj.effect === 0.5
+    //   );
+    // });
+
+    // console.log("Super Effective types: " + superEffective);
+    // console.log("Ineffective types: " + ineffective);
+
+    console.log(data);
+    const raidTypes = data.types;
+    const raidCounters = data.counter;
+    const userPokemon = user.list;
+    console.log(userPokemon[0].fastMove);
+
+    let userPokemonWithMoveTypeCounters = [];
+
+    // let tempList = [];
+    // for (const [key, value] of Object.entries(raidCounters)) {
+    //   console.log(key + ":" + value);
+    //   tempList = userPokemon.filter((obj) => obj.)
+    // }
+  };
 
   return (
     <>
