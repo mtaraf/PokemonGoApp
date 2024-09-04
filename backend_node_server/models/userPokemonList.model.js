@@ -42,6 +42,12 @@ const UserPokemonListSchema = mongoose.Schema(
           type: String,
         },
         types: [],
+        base_attack: {
+          type: Number,
+        },
+        base_defense: {
+          type: Number,
+        },
       },
     ],
   },

@@ -24,6 +24,14 @@ const PokemonSchema = mongoose.Schema(
     charged_moves: [],
 
     fast_moves: [],
+
+    base_attack: {
+      type: Number,
+    },
+
+    base_defense: {
+      type: Number,
+    },
   },
   {
     timestamps: true, // CreatedAt and UpdatedAt

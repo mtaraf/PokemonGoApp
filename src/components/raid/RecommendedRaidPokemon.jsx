@@ -216,35 +216,82 @@ export default function RecommendedRaidPokemon({
 
   // Calculate the best pokemon for the raid selected
   const calculateTeam = (data) => {
-    // const raidTypes = [];
-
-    // let superEffective;
-    // let ineffective;
-
-    // raidTypes.forEach((type) => {
-    //   const counters = map.get(type);
-    //   superEffective = counters.filter((obj) => obj.effect === 2);
-    //   ineffective = counters.filter(
-    //     (obj) => obj.effect === 0 || obj.effect === 0.5
-    //   );
-    // });
-
-    // console.log("Super Effective types: " + superEffective);
-    // console.log("Ineffective types: " + ineffective);
-
     console.log(data);
     const raidTypes = data.types;
     const raidCounters = data.counter;
     const userPokemon = user.list;
-    console.log(userPokemon[0].fastMove);
+    console.log("User list: " + userPokemon[0].name);
 
-    let userPokemonWithMoveTypeCounters = [];
+    let sortedUserPokemonList = [];
 
-    // let tempList = [];
-    // for (const [key, value] of Object.entries(raidCounters)) {
-    //   console.log(key + ":" + value);
-    //   tempList = userPokemon.filter((obj) => obj.)
-    // }
+    let fastMoveDamage = 0;
+    let fastMoveType = "";
+    let chargedMoveDamage = 0;
+    let chargedMoveType = "";
+
+    let raidTypeEffectiveness = [];
+    raidTypes.forEach((type) =>
+      raidTypeEffectiveness.push.apply(raidTypeEffectiveness, map.get(type))
+    );
+
+    userPokemon.forEach((obj) => {
+      const attack =
+        (obj.base_attack + Number(obj.attack)) /
+        (obj.base_defense + Number(obj.defense));
+
+      // Fast Move Calculation
+      fastMoveDamage =
+        (obj.fastMove.power / (obj.fastMove.duration / 1000)) * attack;
+      fastMoveType = obj.fastMove.type;
+      if (obj.types.includes(fastMoveType)) {
+        fastMoveDamage *= 1.2;
+      }
+
+      if (raidCounters[fastMoveType] !== undefined) {
+        fastMoveDamage *= raidCounters[fastMoveType];
+      } else {
+        const notEffectiveType = raidTypeEffectiveness.find(
+          (obj) => obj.type === fastMoveType
+        );
+        if (notEffectiveType !== undefined) {
+          fastMoveDamage *= notEffectiveType.effect;
+        }
+      }
+
+      fastMoveDamage = Math.floor(fastMoveDamage * 0.5) + 1;
+
+      // Charged Move Calculation
+      chargedMoveDamage =
+        (obj.chargedMove.power / (obj.chargedMove.duration / 1000)) * attack;
+      chargedMoveType = obj.chargedMove.type;
+      if (obj.types.includes(chargedMoveType)) {
+        chargedMoveDamage *= 1.2;
+      }
+
+      if (raidCounters[chargedMoveType] !== undefined) {
+        chargedMoveDamage *= raidCounters[chargedMoveType];
+      } else {
+        const notEffectiveType = raidTypeEffectiveness.find(
+          (obj) => obj.type === chargedMoveType
+        );
+        if (notEffectiveType !== undefined) {
+          chargedMoveDamage *= notEffectiveType.effect;
+        }
+      }
+
+      chargedMoveDamage = Math.floor(chargedMoveDamage * 0.5) + 1;
+
+      console.log(obj);
+      console.log(attack);
+      console.log("Fast Move Damage: " + fastMoveDamage);
+      console.log("Charged Move Damage: " + chargedMoveDamage);
+
+      // Multiply the damage calculated by some factor of cp
+
+      // Add data to a data structure then sort based on best damage and best typing
+    });
+
+    // Sort data structure based on damage and best typings
   };
 
   return (

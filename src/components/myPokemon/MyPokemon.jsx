@@ -125,6 +125,8 @@ export default function MyPokemon({ setPage, setUser, user }) {
 
     let pokemonImage = "";
     let pokemonTypes = [];
+    let base_attack = 0;
+    let base_defense = 0;
 
     if (pokeData === null) {
       console.log("Error obtaining pokeData for specific pokemon");
@@ -132,6 +134,8 @@ export default function MyPokemon({ setPage, setUser, user }) {
     } else {
       pokemonImage = pokeData.image;
       pokemonTypes = pokeData.type;
+      base_attack = pokeData.base_attack;
+      base_defense = pokeData.base_defense;
     }
 
     // Moves
@@ -142,6 +146,8 @@ export default function MyPokemon({ setPage, setUser, user }) {
       (item) => item.name === e.target.form[3].value
     );
     console.log(chargedMove);
+
+    // Get base_attack and base_defense from database
 
     // Create pokemon object to add to list and database
     const newPokemon = {
@@ -157,6 +163,8 @@ export default function MyPokemon({ setPage, setUser, user }) {
       shadow: e.target.form[9].checked,
       image: pokemonImage,
       types: pokemonTypes,
+      base_attack: base_attack,
+      base_defense: base_defense,
     };
 
     // add to list
