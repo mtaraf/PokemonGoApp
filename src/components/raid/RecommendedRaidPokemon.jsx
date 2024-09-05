@@ -3,6 +3,7 @@ import styles from "../../css/raid/recommnededRaidPokemon.module.css";
 import PokemonDisplay from "./PokemonDisplay";
 import articuno from "../../assets/articuno.jpg";
 import { useEffect, useState } from "react";
+import { getSpecificPokemon } from "../api/internalApi";
 
 export default function RecommendedRaidPokemon({
   isRaidSelected,
@@ -215,12 +216,20 @@ export default function RecommendedRaidPokemon({
   }, [isRaidSelected]);
 
   // Calculate the best pokemon for the raid selected
-  const calculateTeam = (data) => {
+  const calculateTeam = async (data) => {
     console.log(data);
     const raidTypes = data.types;
     const raidCounters = data.counter;
     const userPokemon = user.list;
     console.log("User list: " + userPokemon[0].name);
+
+    // Get raid pokemon data for defense statistic for damage calculation
+    const raidPokemonData = await getSpecificPokemon(data.names.English);
+
+    if (raidPokemonData === undefined) {
+      console.error("Raid Pokemon Data not found!");
+      return;
+    }
 
     let sortedUserPokemonList = [];
 
@@ -236,8 +245,9 @@ export default function RecommendedRaidPokemon({
 
     userPokemon.forEach((obj) => {
       const attack =
-        (obj.base_attack + Number(obj.attack)) /
-        (obj.base_defense + Number(obj.defense));
+        ((obj.base_attack + Number(obj.attack)) /
+          raidPokemonData.base_defense) *
+        (obj.cp / 500);
 
       // Fast Move Calculation
       fastMoveDamage =

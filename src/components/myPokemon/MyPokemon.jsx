@@ -15,6 +15,12 @@ import { useEffect, useState } from "react";
 import Header from "../header/Header";
 import PokemonHighlight from "./PokemonHighlight";
 import EmptyPokemonHighlight from "./EmptyPokemonHighlight";
+import {
+  updateList,
+  getSpecificPokemon,
+  getPokemonApiData,
+} from "../api/internalApi";
+import { getFastMoves, getChargedMoves } from "../api/externalApi";
 
 export default function MyPokemon({ setPage, setUser, user }) {
   // Modal
@@ -53,7 +59,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
 
   //Use Effects
   useEffect(() => {
-    getPokemonApiData();
+    assignPokemonData();
     if (user.signedIn) {
       syncUserPokemonList();
       console.log(user.list);
@@ -77,12 +83,17 @@ export default function MyPokemon({ setPage, setUser, user }) {
     });
   }, [userPokemonList]);
 
-  // TO-DO: Put this in ENV file
-  const POKEMON_API_URL = "http://localhost:5000/api/pokemon";
-  const USER_POKEMON_LIST_URL = "http://localhost:5000/api/userPokemonList";
-  const EXTERNAL_FAST_MOVES_API = "https://pogoapi.net/api/v1/fast_moves.json";
-  const EXTERNAL_CHARGED_MOVES_API =
-    "https://pogoapi.net/api/v1/charged_moves.json";
+  useEffect(() => {
+    getPokemonMoves();
+  }, []);
+
+  const getPokemonMoves = async () => {
+    const chargedMovesData = await getChargedMoves();
+    const fastMoveData = await getFastMoves();
+
+    setChargedMoves(chargedMovesData);
+    setFastMoves(fastMoveData);
+  };
 
   const openModal = () => {
     // validate user is signed in
@@ -147,8 +158,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
     );
     console.log(chargedMove);
 
-    // Get base_attack and base_defense from database
-
     // Create pokemon object to add to list and database
     const newPokemon = {
       name: e.target.form[0].value,
@@ -183,7 +192,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
       chargedMoves: [],
     });
 
-    await updateList(tempList);
+    await updateList(tempList, user);
   };
 
   // Delete pokemon from list
@@ -202,35 +211,7 @@ export default function MyPokemon({ setPage, setUser, user }) {
 
     setUserPokemonList(list);
     setCurrent("");
-    await updateList(list);
-  };
-
-  // API to update userPokemonList
-  const updateList = async (updatedList) => {
-    const listObj = {
-      username: user.username,
-      list: updatedList,
-    };
-
-    try {
-      const response = await fetch(
-        `${USER_POKEMON_LIST_URL}/${user.username}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(listObj),
-        }
-      );
-
-      const data = await response.json();
-
-      console.log(JSON.stringify(listObj));
-      console.log(user.username);
-    } catch {
-      console.log("Error updating list when adding pokemon: " + error);
-    }
+    await updateList(list, user);
   };
 
   // Error checking for adding new pokemon
@@ -269,46 +250,14 @@ export default function MyPokemon({ setPage, setUser, user }) {
     return true;
   };
 
-  // Api to gather specific pokemon data
-  const getSpecificPokemon = async (name) => {
-    try {
-      const response = await fetch(`${POKEMON_API_URL}/${name}`);
-      const data = await response.json();
-
-      if (data !== null) {
-        return data[0];
-      }
-      return null;
-    } catch (error) {
-      console.log("Error obtaining specific pokemon data: " + error);
-      return null;
-    }
-  };
-
-  // Api to gather all pokemon names from external api
-  const getPokemonApiData = async () => {
-    try {
-      const response = await fetch(POKEMON_API_URL);
-      const data = await response.json();
-
-      // If user exists, login user
-      if (data !== null && response.status === 200) {
-        console.log("Data Received");
-        assignPokemonData(data);
-        return true;
-      }
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
-  };
-
   // Syncs current user pokemon list
   const syncUserPokemonList = () => {
     setUserPokemonList(user.list);
   };
 
-  const assignPokemonData = async (data) => {
+  const assignPokemonData = async () => {
+    const data = await getPokemonApiData();
+    console.log("Assign Pokemon Data: " + data.length);
     let tempList = [];
     let moveList = [];
 
@@ -336,43 +285,6 @@ export default function MyPokemon({ setPage, setUser, user }) {
     const data = pokemonMoveData.find((item) => item.id === name);
     console.log(data);
     setCurrentPokemonMoves(data);
-  };
-
-  useEffect(() => {
-    getChargedMoves();
-    getFastMoves();
-  }, []);
-
-  // External API to GET fast_moves
-  const getFastMoves = async () => {
-    try {
-      const response = await fetch(EXTERNAL_FAST_MOVES_API);
-      const data = await response.json();
-
-      if (data !== null) {
-        setFastMoves(data);
-      }
-      return null;
-    } catch (error) {
-      console.log("Error obtaining fast moves data: " + error);
-      return null;
-    }
-  };
-
-  // External API to GET charged_moves
-  const getChargedMoves = async () => {
-    try {
-      const response = await fetch(EXTERNAL_CHARGED_MOVES_API);
-      const data = await response.json();
-
-      if (data !== null) {
-        setChargedMoves(data);
-      }
-      return null;
-    } catch (error) {
-      console.log("Error obtaining charged moves data: " + error);
-      return null;
-    }
   };
 
   return (
