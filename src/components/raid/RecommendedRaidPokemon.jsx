@@ -217,6 +217,10 @@ export default function RecommendedRaidPokemon({
 
   // Calculate the best pokemon for the raid selected
   const calculateTeam = async (data) => {
+    if (!user.signedIn) {
+      return;
+    }
+
     console.log(data);
     const raidTypes = data.types;
     const raidCounters = data.counter;
@@ -224,7 +228,11 @@ export default function RecommendedRaidPokemon({
     console.log("User list: " + userPokemon[0].name);
 
     // Get raid pokemon data for defense statistic for damage calculation
-    const raidPokemonData = await getSpecificPokemon(data.names.English);
+    let pokemonQuery = data.id;
+    console.log(pokemonQuery[0] + pokemonQuery.slice(1).toLowerCase());
+    const raidPokemonData = await getSpecificPokemon(
+      pokemonQuery[0] + pokemonQuery.slice(1).toLowerCase()
+    );
 
     if (raidPokemonData === undefined) {
       console.error("Raid Pokemon Data not found!");
@@ -244,6 +252,7 @@ export default function RecommendedRaidPokemon({
     );
 
     userPokemon.forEach((obj) => {
+      // Attacker base_attack, Defender base_defense, multiplied by factor of cp (maybe needs fine tuning in the future)
       const attack =
         ((obj.base_attack + Number(obj.attack)) /
           raidPokemonData.base_defense) *
@@ -271,6 +280,8 @@ export default function RecommendedRaidPokemon({
       fastMoveDamage = Math.floor(fastMoveDamage * 0.5) + 1;
 
       // Charged Move Calculation
+
+      // Duration factors in the charge time
       chargedMoveDamage =
         (obj.chargedMove.power / (obj.chargedMove.duration / 1000)) * attack;
       chargedMoveType = obj.chargedMove.type;
@@ -296,12 +307,33 @@ export default function RecommendedRaidPokemon({
       console.log("Fast Move Damage: " + fastMoveDamage);
       console.log("Charged Move Damage: " + chargedMoveDamage);
 
-      // Multiply the damage calculated by some factor of cp
+      // Add data to a data structure
+      sortedUserPokemonList.push({
+        pokemon_name: obj.name,
+        charged_damage: chargedMoveDamage,
+        fast_damage: fastMoveDamage,
+        total_damage: chargedMoveDamage + fastMoveDamage,
+      });
 
       // Add data to a data structure then sort based on best damage and best typing
     });
+    sortedUserPokemonList.forEach((item) => console.log(item.pokemon_name));
 
-    // Sort data structure based on damage and best typings
+    // Sort data structure based on damage
+    sortedUserPokemonList.sort((a, b) => {
+      if (a.total_damage > b.total_damage) {
+        return -1;
+      } else if (a.total_damage < b.total_damage) {
+        return 1;
+      }
+      return 0;
+    });
+
+    // First 6 pokemon in list represent highest dps, best all around should take into consideration defensive typing
+
+    sortedUserPokemonList.forEach((item) =>
+      console.log(item.pokemon_name + " " + item.total_damage)
+    );
   };
 
   return (

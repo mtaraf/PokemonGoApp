@@ -28,12 +28,6 @@ export default function PokemonHighlight({
   // Delete Modal
   const [show, setShow] = useState(false);
 
-  // // Moves
-  // const [chargedMoves, setChargedMoves] = useState([]);
-  // const [fastMoves, setFastMoves] = useState([]);
-  // const [fast, setFast] = useState({});
-  // const [charged, setCharged] = useState({});
-
   const pokemonTypes = [
     {
       label: "Fire",
@@ -127,53 +121,6 @@ export default function PokemonHighlight({
         "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Types/POKEMON_TYPE_BUG.png",
     },
   ];
-
-  // const EXTERNAL_FAST_MOVES_API = "https://pogoapi.net/api/v1/fast_moves.json";
-  // const EXTERNAL_CHARGED_MOVES_API =
-  //   "https://pogoapi.net/api/v1/charged_moves.json";
-
-  // useEffect(() => {
-  //   getChargedMoves();
-  //   getFastMoves();
-  // }, []);
-
-  // useEffect(() => {
-  //   setFast(fastMoves.find((item) => item.name === fastMove));
-  //   setCharged(chargedMoves.find((item) => item.name === chargedMove));
-  // }, [fastMove, chargedMove]);
-
-  // External API to GET fast_moves
-  // const getFastMoves = async () => {
-  //   try {
-  //     const response = await fetch(EXTERNAL_FAST_MOVES_API);
-  //     const data = await response.json();
-
-  //     if (data !== null) {
-  //       setFastMoves(data);
-  //       setFast(data.find((item) => item.name === fastMove));
-  //     }
-  //     return null;
-  //   } catch (error) {
-  //     console.log("Error obtaining specific pokemon data: " + e);
-  //     return null;
-  //   }
-  // };
-
-  // // External API to GET charged_moves
-  // const getChargedMoves = async () => {
-  //   try {
-  //     const response = await fetch(EXTERNAL_CHARGED_MOVES_API);
-  //     const data = await response.json();
-
-  //     if (data !== null) {
-  //       setChargedMoves(data);
-  //     }
-  //     return null;
-  //   } catch (error) {
-  //     console.log("Error obtaining specific pokemon data: " + e);
-  //     return null;
-  //   }
-  // };
 
   const closeModal = () => {
     setShow(false);

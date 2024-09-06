@@ -4,6 +4,7 @@ import { Button, Navbar, Nav, Container, Modal, Form } from "react-bootstrap";
 import userImage from "../../assets/user.png";
 import { useNavigate } from "react-router-dom";
 import UserDropDown from "./UserDropDown";
+import { getUser, getUserList, postUser } from "../api/internalApi";
 
 export default function Header({ setPage, setUser, user }) {
   const navigate = useNavigate();
@@ -20,10 +21,6 @@ export default function Header({ setPage, setUser, user }) {
   const [displaySignUp, setDisplaySignUp] = useState(false);
   const [passwordLengthError, setPasswordLengthError] = useState(true);
   const [passwordNumberError, setPasswordNumberError] = useState(true);
-
-  // TO-DO: Put this in ENV file
-  const USERS_API_URL = "http://localhost:5000/api/users";
-  const USER_POKEMON_LIST_API_URL = "http://localhost:5000/api/userPokemonList";
 
   // Make sure there is atleast one character for username and password to enable submit button
   useEffect(() => {
@@ -48,11 +45,6 @@ export default function Header({ setPage, setUser, user }) {
     }
   }, [username, password]);
 
-  // Changes current page displayed
-  // const changePage = (page) => {
-  //   setPage(page);
-  // };
-
   // closes modal
   const handleClose = () => {
     setShow(false);
@@ -74,6 +66,8 @@ export default function Header({ setPage, setUser, user }) {
     let data = null;
 
     if (success) {
+      setLoginError("");
+      setShow(false);
       data = await getUserList(username);
     }
 
@@ -94,39 +88,6 @@ export default function Header({ setPage, setUser, user }) {
     }
   };
 
-  // API to get user data from database
-  const getUser = async (username, password) => {
-    try {
-      const response = await fetch(`${USERS_API_URL}/${username}&${password}`);
-      const data = await response.json();
-
-      // If user exists, login user
-      if (data !== null && response.status === 200) {
-        console.log("Login Success");
-        setLoginError("");
-        setShow(false);
-        return data;
-      } else {
-        setLoginError("Username or password incorrect, please try again");
-        return null;
-      }
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
-  };
-
-  // API to get user list by username, returns null if user list does not exist
-  const getUserList = async (username) => {
-    try {
-      const response = await fetch(`${USER_POKEMON_LIST_API_URL}/${username}`);
-      const data = response.json();
-      return data;
-    } catch (error) {
-      console.log("Error obtaining user pokemon list: " + error);
-    }
-  };
-
   // handles login when submit button for sign in modal is clicked
   const handleSignUp = async (e) => {
     const username = e.target.form[0].value;
@@ -139,48 +100,17 @@ export default function Header({ setPage, setUser, user }) {
 
     const data = await postUser(username, password);
 
-    if (data !== null) {
+    if (data.message?.includes("duplicate key error")) {
+      setSignUpError("Username is taken! Please try another.");
+      return;
+    }
+
+    if (data !== null && data !== undefined) {
       setUser({
         username: data.username,
         signedIn: true,
       });
       handleClose();
-    }
-  };
-
-  // API to post user data from database
-  const postUser = async (username, password) => {
-    const userObj = {
-      username: username,
-      password: password,
-    };
-
-    //if username not in use
-    try {
-      const response = await fetch(USERS_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userObj),
-      });
-
-      const data = await response.json();
-      console.log(data);
-
-      if (response.status === 200) {
-        // User added, login user as well
-        console.log("User Creation Success");
-        return data;
-      } else {
-        if (data.message.includes("duplicate key error")) {
-          setSignUpError("Username is taken! Please try another.");
-        }
-        return null;
-      }
-    } catch (e) {
-      console.log(e);
-      return null;
     }
   };
 

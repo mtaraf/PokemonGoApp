@@ -5,6 +5,7 @@ import RecommendedRaidPokemon from "./RecommendedRaidPokemon";
 import Header from "../header/Header";
 import CurrentRaids from "./CurrentRaids";
 import { useEffect, useState } from "react";
+import { getCurrentRaids } from "../api/externalApi";
 
 export default function RaidCalculator({ setPage, setUser, user }) {
   // Raid List
@@ -14,26 +15,14 @@ export default function RaidCalculator({ setPage, setUser, user }) {
   const [isRaidSelected, setIsRaidSelected] = useState(false);
   const [raidSelected, setRaidSelected] = useState();
 
-  // API for current raids
-  const raidApi =
-    "https://pokemon-go-api.github.io/pokemon-go-api/api/raidboss.json";
-
-  // Query API for current raids
-  const getCurrentRaids = async () => {
-    try {
-      const response = await fetch(raidApi);
-      const data = await response.json();
-      console.log(data);
-
-      setRaidList(data.currentList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getCurrentRaids();
+    getRaids();
   }, []);
+
+  const getRaids = async () => {
+    const data = await getCurrentRaids();
+    setRaidList(data.currentList);
+  };
 
   return (
     <Container

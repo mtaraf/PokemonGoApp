@@ -3,6 +3,8 @@
 const EXTERNAL_FAST_MOVES_API = "https://pogoapi.net/api/v1/fast_moves.json";
 const EXTERNAL_CHARGED_MOVES_API =
   "https://pogoapi.net/api/v1/charged_moves.json";
+const EXTRENAL_RAID_API =
+  "https://pokemon-go-api.github.io/pokemon-go-api/api/raidboss.json";
 
 /*
     External API to GET fast_moves
@@ -41,5 +43,22 @@ export const getChargedMoves = async () => {
   } catch (error) {
     console.log("Error obtaining charged moves data: " + error);
     return null;
+  }
+};
+
+/*
+    External API to GET current raids
+    Parameters: none
+    return: json data of current raids
+*/
+export const getCurrentRaids = async () => {
+  try {
+    const response = await fetch(EXTRENAL_RAID_API);
+    const data = await response.json();
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    console.log(error);
   }
 };
