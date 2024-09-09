@@ -1,4 +1,4 @@
-import { Alert, Card, Col, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Row } from "react-bootstrap";
 import styles from "../../css/raid/recommnededRaidPokemon.module.css";
 import PokemonDisplay from "./PokemonDisplay";
 import articuno from "../../assets/articuno.jpg";
@@ -13,8 +13,13 @@ export default function RecommendedRaidPokemon({
   // Alert
   const [show, setShow] = useState(false);
 
+  // Pokemon Teams
+  const [maximumDamageTeam, setMaximumDamageTeam] = useState([]);
+  const [allAroundTeam, setAllAroundTeam] = useState([]);
+  const [currentDisplayedTeam, setCurrentDisplayedTeam] = useState(1);
+
   // Pokemon Typing Map
-  const map = new Map();
+  let map = new Map();
 
   // Initialize maps on create
   useEffect(() => {
@@ -199,7 +204,17 @@ export default function RecommendedRaidPokemon({
       { effect: 0.5, type: "Dark" },
       { effect: 2, type: "Steel" },
     ]);
-  }, []);
+
+    // Dark
+    map.set("Dark", [
+      { effect: 2, type: "Fighting" },
+      { effect: 0, type: "Psychic" },
+      { effect: 2, type: "Bug" },
+      { effect: 0.5, type: "Ghost" },
+      { effect: 0.5, type: "Dark" },
+      { effect: 2, type: "Fairy" },
+    ]);
+  }, [map]);
 
   useEffect(() => {
     if (raidSelected !== undefined) {
@@ -221,15 +236,15 @@ export default function RecommendedRaidPokemon({
       return;
     }
 
-    console.log(data);
+    //console.log(data);
     const raidTypes = data.types;
     const raidCounters = data.counter;
     const userPokemon = user.list;
-    console.log("User list: " + userPokemon[0].name);
+    //console.log("User list: " + userPokemon[0].name);
 
     // Get raid pokemon data for defense statistic for damage calculation
     let pokemonQuery = data.id;
-    console.log(pokemonQuery[0] + pokemonQuery.slice(1).toLowerCase());
+    //console.log(pokemonQuery[0] + pokemonQuery.slice(1).toLowerCase());
     const raidPokemonData = await getSpecificPokemon(
       pokemonQuery[0] + pokemonQuery.slice(1).toLowerCase()
     );
@@ -302,10 +317,10 @@ export default function RecommendedRaidPokemon({
 
       chargedMoveDamage = Math.floor(chargedMoveDamage * 0.5) + 1;
 
-      console.log(obj);
-      console.log(attack);
-      console.log("Fast Move Damage: " + fastMoveDamage);
-      console.log("Charged Move Damage: " + chargedMoveDamage);
+      //console.log(obj);
+      //console.log(attack);
+      //console.log("Fast Move Damage: " + fastMoveDamage);
+      //console.log("Charged Move Damage: " + chargedMoveDamage);
 
       // Add data to a data structure
       sortedUserPokemonList.push({
@@ -313,11 +328,13 @@ export default function RecommendedRaidPokemon({
         charged_damage: chargedMoveDamage,
         fast_damage: fastMoveDamage,
         total_damage: chargedMoveDamage + fastMoveDamage,
+        pokemon_cp: obj.cp,
+        image: obj.image,
+        types: obj.types,
       });
 
       // Add data to a data structure then sort based on best damage and best typing
     });
-    sortedUserPokemonList.forEach((item) => console.log(item.pokemon_name));
 
     // Sort data structure based on damage
     sortedUserPokemonList.sort((a, b) => {
@@ -330,10 +347,45 @@ export default function RecommendedRaidPokemon({
     });
 
     // First 6 pokemon in list represent highest dps, best all around should take into consideration defensive typing
+    if (sortedUserPokemonList.length > 6) {
+      let tempMaxDamageTeam = [];
+      for (let i = 0; i < 6; i++) {
+        tempMaxDamageTeam.push(sortedUserPokemonList[i]);
+      }
+      setMaximumDamageTeam(tempMaxDamageTeam);
+    }
 
-    sortedUserPokemonList.forEach((item) =>
-      console.log(item.pokemon_name + " " + item.total_damage)
-    );
+    // Best All Around Team
+    // Find Mean / Standard Deviation of cp of top 6 dps, then filter top dps with best typing that are 2 standard devs from mean at most
+    let tempAllAroundTeam = [];
+    let addToTeam = true;
+    for (let i = 0; i < sortedUserPokemonList.length; i++) {
+      // Get Super Effective typings against this pokemon
+      let superEffective = [];
+      sortedUserPokemonList[i].types.forEach((type) => {
+        const typingData = map.get(type);
+        superEffective = typingData.filter((item) => item.effect === 2);
+      });
+
+      // if raid typing is in the super effective list, set flag to not add pokemon to list
+      raidTypes.forEach((typing) => {
+        if (addToTeam && superEffective.some((obj) => obj.type === typing)) {
+          addToTeam = false;
+          console.log("Do not add: " + sortedUserPokemonList[i].pokemon_name);
+        }
+      });
+
+      if (addToTeam) {
+        // Check CP here (if too far from the top then don't add, will have to go back through list and add pokemon with bad typing anyway)
+
+        // add pokemon to list
+        tempAllAroundTeam.push(sortedUserPokemonList[i]);
+      }
+
+      addToTeam = true;
+    }
+
+    setAllAroundTeam(tempAllAroundTeam);
   };
 
   return (
@@ -345,20 +397,169 @@ export default function RecommendedRaidPokemon({
       >
         <div className={styles.title}>Best Pokemon</div>
         <Row>
+          <Col>
+            <Button
+              className={styles.button}
+              onClick={() => {
+                setCurrentDisplayedTeam(1);
+              }}
+            >
+              Maximum Damage Team
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              className={styles.button}
+              onClick={() => {
+                setCurrentDisplayedTeam(0);
+              }}
+            >
+              All-Around Team
+            </Button>
+          </Col>
+        </Row>
+        <Row>
           <Col xl={6} lg={12} md={12} sm={12}>
-            <PokemonDisplay
-              image={articuno}
-              name="articuno"
-              cp="1000"
-              user={user}
-            />
-            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
-            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
+            {currentDisplayedTeam ? (
+              maximumDamageTeam.length >= 3 ? (
+                maximumDamageTeam
+                  .slice(0, 3)
+                  .map((item, index) => (
+                    <PokemonDisplay
+                      image={item.image}
+                      cp={item.pokemon_cp}
+                      name={item.pokemon_name}
+                      user={user}
+                      key={index}
+                    />
+                  ))
+              ) : (
+                <div>
+                  <PokemonDisplay
+                    image={articuno}
+                    name=""
+                    cp="1000"
+                    user={user}
+                  />
+                  <PokemonDisplay
+                    image={articuno}
+                    name=""
+                    cp="1000"
+                    user={user}
+                  />
+                  <PokemonDisplay
+                    image={articuno}
+                    name=""
+                    cp="1000"
+                    user={user}
+                  />
+                </div>
+              )
+            ) : allAroundTeam.length >= 3 ? (
+              allAroundTeam
+                .slice(0, 3)
+                .map((item, index) => (
+                  <PokemonDisplay
+                    image={item.image}
+                    cp={item.pokemon_cp}
+                    name={item.pokemon_name}
+                    user={user}
+                    key={index}
+                  />
+                ))
+            ) : (
+              <div>
+                <PokemonDisplay
+                  image={articuno}
+                  name=""
+                  cp="1000"
+                  user={user}
+                />
+                <PokemonDisplay
+                  image={articuno}
+                  name=""
+                  cp="1000"
+                  user={user}
+                />
+                <PokemonDisplay
+                  image={articuno}
+                  name=""
+                  cp="1000"
+                  user={user}
+                />
+              </div>
+            )}
           </Col>
           <Col xl={6} lg={12} md={12} sm={12}>
-            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
-            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
-            <PokemonDisplay image={articuno} name="" cp="1000" user={user} />
+            {currentDisplayedTeam ? (
+              maximumDamageTeam.length === 6 ? (
+                maximumDamageTeam
+                  .slice(3, 6)
+                  .map((item, index) => (
+                    <PokemonDisplay
+                      image={item.image}
+                      cp={item.pokemon_cp}
+                      name={item.pokemon_name}
+                      user={user}
+                      key={index}
+                    />
+                  ))
+              ) : (
+                <div>
+                  <PokemonDisplay
+                    image={articuno}
+                    name=""
+                    cp="1000"
+                    user={user}
+                  />
+                  <PokemonDisplay
+                    image={articuno}
+                    name=""
+                    cp="1000"
+                    user={user}
+                  />
+                  <PokemonDisplay
+                    image={articuno}
+                    name=""
+                    cp="1000"
+                    user={user}
+                  />
+                </div>
+              )
+            ) : allAroundTeam.length >= 6 ? (
+              allAroundTeam
+                .slice(3, 6)
+                .map((item, index) => (
+                  <PokemonDisplay
+                    image={item.image}
+                    cp={item.pokemon_cp}
+                    name={item.pokemon_name}
+                    user={user}
+                    key={index}
+                  />
+                ))
+            ) : (
+              <div>
+                <PokemonDisplay
+                  image={articuno}
+                  name=""
+                  cp="1000"
+                  user={user}
+                />
+                <PokemonDisplay
+                  image={articuno}
+                  name=""
+                  cp="1000"
+                  user={user}
+                />
+                <PokemonDisplay
+                  image={articuno}
+                  name=""
+                  cp="1000"
+                  user={user}
+                />
+              </div>
+            )}
           </Col>
         </Row>
       </Card>

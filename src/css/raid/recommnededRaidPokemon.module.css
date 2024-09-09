@@ -1,6 +1,6 @@
 /* Container */
 .containerDarkMode {
-  margin: 10% 5% 10% 0;
+  margin: 10% 5%;
   background-color: #0c1c3e;
   border: 1px solid #ffa800;
 }
@@ -19,4 +19,16 @@
   text-align: center;
   border-bottom: 1px solid #ffa800;
   margin-bottom: 10px;
+}
+
+/* Button */
+.button {
+  background-color: #1c4d79;
+  border: none;
+  width: 80%;
+  margin: 10px 0 10px 10%;
+}
+
+.button:hover {
+  background-color: #205786;
 }
