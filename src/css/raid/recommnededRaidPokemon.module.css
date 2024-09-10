@@ -24,11 +24,26 @@
 /* Button */
 .button {
   background-color: #1c4d79;
-  border: none;
+  border: 1px solid #0c1c3e;
   width: 80%;
   margin: 10px 0 10px 10%;
 }
 
 .button:hover {
   background-color: #205786;
+  border: 1px solid #0c1c3e;
+}
+
+.selectedButton {
+  background-color: #1c4d79;
+  border: 1px solid;
+  color: #ffa800;
+  width: 80%;
+  margin: 10px 0 10px 10%;
+}
+
+.selectedButton:hover {
+  background-color: #205786;
+  color: #ffa800;
+  border: 1px solid;
 }

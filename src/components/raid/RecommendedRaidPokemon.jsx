@@ -16,7 +16,7 @@ export default function RecommendedRaidPokemon({
   // Pokemon Teams
   const [maximumDamageTeam, setMaximumDamageTeam] = useState([]);
   const [allAroundTeam, setAllAroundTeam] = useState([]);
-  const [currentDisplayedTeam, setCurrentDisplayedTeam] = useState(1);
+  const [currentTeam, setCurrentTeam] = useState([]);
 
   // Pokemon Typing Map
   let map = new Map();
@@ -317,11 +317,6 @@ export default function RecommendedRaidPokemon({
 
       chargedMoveDamage = Math.floor(chargedMoveDamage * 0.5) + 1;
 
-      //console.log(obj);
-      //console.log(attack);
-      //console.log("Fast Move Damage: " + fastMoveDamage);
-      //console.log("Charged Move Damage: " + chargedMoveDamage);
-
       // Add data to a data structure
       sortedUserPokemonList.push({
         pokemon_name: obj.name,
@@ -332,8 +327,6 @@ export default function RecommendedRaidPokemon({
         image: obj.image,
         types: obj.types,
       });
-
-      // Add data to a data structure then sort based on best damage and best typing
     });
 
     // Sort data structure based on damage
@@ -353,6 +346,8 @@ export default function RecommendedRaidPokemon({
         tempMaxDamageTeam.push(sortedUserPokemonList[i]);
       }
       setMaximumDamageTeam(tempMaxDamageTeam);
+      // Set default team display to max damage team on raid selected
+      setCurrentTeam(tempMaxDamageTeam);
     }
 
     // Best All Around Team
@@ -399,9 +394,13 @@ export default function RecommendedRaidPokemon({
         <Row>
           <Col>
             <Button
-              className={styles.button}
+              className={
+                currentTeam === maximumDamageTeam
+                  ? styles.selectedButton
+                  : styles.button
+              }
               onClick={() => {
-                setCurrentDisplayedTeam(1);
+                setCurrentTeam(maximumDamageTeam);
               }}
             >
               Maximum Damage Team
@@ -409,9 +408,13 @@ export default function RecommendedRaidPokemon({
           </Col>
           <Col>
             <Button
-              className={styles.button}
+              className={
+                currentTeam === allAroundTeam
+                  ? styles.selectedButton
+                  : styles.button
+              }
               onClick={() => {
-                setCurrentDisplayedTeam(0);
+                setCurrentTeam(allAroundTeam);
               }}
             >
               All-Around Team
@@ -420,43 +423,8 @@ export default function RecommendedRaidPokemon({
         </Row>
         <Row>
           <Col xl={6} lg={12} md={12} sm={12}>
-            {currentDisplayedTeam ? (
-              maximumDamageTeam.length >= 3 ? (
-                maximumDamageTeam
-                  .slice(0, 3)
-                  .map((item, index) => (
-                    <PokemonDisplay
-                      image={item.image}
-                      cp={item.pokemon_cp}
-                      name={item.pokemon_name}
-                      user={user}
-                      key={index}
-                    />
-                  ))
-              ) : (
-                <div>
-                  <PokemonDisplay
-                    image={articuno}
-                    name=""
-                    cp="1000"
-                    user={user}
-                  />
-                  <PokemonDisplay
-                    image={articuno}
-                    name=""
-                    cp="1000"
-                    user={user}
-                  />
-                  <PokemonDisplay
-                    image={articuno}
-                    name=""
-                    cp="1000"
-                    user={user}
-                  />
-                </div>
-              )
-            ) : allAroundTeam.length >= 3 ? (
-              allAroundTeam
+            {currentTeam.length >= 3 ? (
+              currentTeam
                 .slice(0, 3)
                 .map((item, index) => (
                   <PokemonDisplay
@@ -491,43 +459,8 @@ export default function RecommendedRaidPokemon({
             )}
           </Col>
           <Col xl={6} lg={12} md={12} sm={12}>
-            {currentDisplayedTeam ? (
-              maximumDamageTeam.length === 6 ? (
-                maximumDamageTeam
-                  .slice(3, 6)
-                  .map((item, index) => (
-                    <PokemonDisplay
-                      image={item.image}
-                      cp={item.pokemon_cp}
-                      name={item.pokemon_name}
-                      user={user}
-                      key={index}
-                    />
-                  ))
-              ) : (
-                <div>
-                  <PokemonDisplay
-                    image={articuno}
-                    name=""
-                    cp="1000"
-                    user={user}
-                  />
-                  <PokemonDisplay
-                    image={articuno}
-                    name=""
-                    cp="1000"
-                    user={user}
-                  />
-                  <PokemonDisplay
-                    image={articuno}
-                    name=""
-                    cp="1000"
-                    user={user}
-                  />
-                </div>
-              )
-            ) : allAroundTeam.length >= 6 ? (
-              allAroundTeam
+            {currentTeam.length >= 6 ? (
+              currentTeam
                 .slice(3, 6)
                 .map((item, index) => (
                   <PokemonDisplay

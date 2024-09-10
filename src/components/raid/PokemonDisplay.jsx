@@ -11,9 +11,7 @@ export default function PokemonDisplay({ image, name, cp, user }) {
     >
       {name ? (
         <div className={styles.flex}>
-          <div className={styles.imageContainer}>
-            <img src={image} className={styles.image} />
-          </div>
+          <img src={image} className={styles.image} />
           <div className={styles.title}>{name}</div>
           <div className={styles.stats}>CP: {cp}</div>
         </div>
